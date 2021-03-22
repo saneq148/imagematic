@@ -13,10 +13,8 @@ function loginSubmitHandler(values, setErrors, setSubmitting, setIsLoggedIn) {
         })
         .catch((error) => {
             if (error.response) {
-                setErrors({
-                    login: error.response.data.errors.login,
-                    password: error.response.data.errors.password
-                });
+                setErrors({ login: error.response.data.errors.login });
+                setErrors({ password: error.response.data.errors.password });
             }
             else if (!error.response) {
                 setErrors({ server: 'Сервер недоступний' });

@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "no-unused-vars": "warn",
+        "no-var": "warn",
+        "semi": "warn",
+        "quotes": [
+            1,
+            "single"
+        ]
+        /*"indent": "warn",
+        "no-multi-spaces": "warn",
+        "space-in-parens": "warn",
+        "no-multiple-empty-lines": "warn",
+        "prefer-const": "warn",
+        "no-use-before-define": "warn"*/
+    }
+}

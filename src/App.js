@@ -1,23 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import 'normalize.css';
+import './App.scss';
+import { Auth, Home } from './Pages';
+import { Login, Register, Header } from './Components';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='wrapper'>
+      <Router>
+        <Route path="/" render={
+          () => (window.location.pathname !== '/login' &&
+            window.location.pathname !== '/register') && <Header />
+        } />
+        <Switch>
+          <Route path='/login' exact>
+            <Auth>
+              {<Login />}
+            </Auth>
+          </Route>
+          <Route path='/register' exact>
+            <Auth>
+              {<Register />}
+            </Auth>
+          </Route>
+          <Route path='/' exact>
+            {localStorage.getItem('token') ?
+              <Home /> :
+              <Auth>
+                {<Login />}
+              </Auth>}
+          </Route>
+          <Route path='/'>
+            <h1>404</h1>
+          </Route>
+        </Switch>
+      </Router>
     </div>
   );
 }

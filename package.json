@@ -52,6 +52,7 @@
   "devDependencies": {
     "eslint": "^7.22.0",
     "eslint-plugin-react": "^7.22.0",
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "prettier": "2.2.1"
   }
 }

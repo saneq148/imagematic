@@ -55,7 +55,7 @@ function Login() {
                     >
                         {errors.server ?
                             <div className='auth__error'>
-                                Помилка: {JSON.stringify(errors.server)}
+                                Помилка: {errors.server}
                             </div> : ''
                         }
                         <div className={classnames(

@@ -1,0 +1,39 @@
+@import '../scss/vars';
+
+.header-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 8rem;
+    width: 100%;
+    background-color: rgba($color: #fff, $alpha: .8);
+    border-bottom: 1px solid $grey-200;
+    backdrop-filter: blur(5px);
+}
+
+.header {
+    min-height: $header-min-height;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__logo {
+        a {
+            text-decoration: none;
+        }
+        svg {
+            width: 4.5rem;
+            height: 4.5rem;
+            vertical-align: middle;
+            margin-right: 1rem;
+            border-radius: 5px;
+        }
+        span {            
+            height: 100%;
+            vertical-align: middle;
+            font-size: 2.1rem;
+            font-weight: bold;
+            color: $black-900;
+        }
+    }
+}

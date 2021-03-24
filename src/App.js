@@ -23,6 +23,7 @@ function App() {
                         <Auth>{<Register />}</Auth>
                     </Route>
                     <Route path="/" exact>
+                        {console.log(localStorage.getItem("token"))}
                         {localStorage.getItem("token") ? <Home /> : <Auth>{<Login />}</Auth>}
                     </Route>
                     <Route path="/">

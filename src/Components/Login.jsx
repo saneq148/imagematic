@@ -13,14 +13,9 @@ function Login() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     if (isLoggedIn) {
-        window.location.reload(); //!  <-- Не виводить сторінку <Home /> після редіректу без перезавантаження
+        //window.location.reload(); //!  <-- Не виводить сторінку <Home /> після редіректу без перезавантаження
         return (
-            <Redirect
-                push
-                to={{
-                    pathname: "/",
-                }}
-            />
+            <Redirect to="/" />
         );
     }
 
@@ -74,8 +69,8 @@ function Login() {
                             {Object.keys(errors)[0] === "login" && touched.login && errors.login ? (
                                 <div className="auth__error-message">{errors.login}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -111,8 +106,8 @@ function Login() {
                             {Object.keys(errors)[0] === "password" && touched.password && errors.password ? (
                                 <div className="auth__error-message">{errors.password}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div className="auth__submit">
                             <button type="submit" disabled={isSubmitting}>

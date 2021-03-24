@@ -26,9 +26,9 @@ function Account() {
     }
 
     useEffect(() => {
-        document.body.addEventListener("click", handleCloseUserMenu);
+        window.addEventListener("click", handleCloseUserMenu);
         return () => {
-            document.body.removeEventListener("click", handleCloseUserMenu);
+            window.removeEventListener("click", handleCloseUserMenu);
         };
     }, []);
 
@@ -48,7 +48,7 @@ function Account() {
             <div className="account__menu">
                 <ul>
                     <li>
-                        <AddIcon /> <Link to="/add" >Додати новий пост</Link>
+                        <Link to="/add" ><AddIcon /><span>Додати новий пост</span></Link>
                     </li>
                     <li onClick={logOut}>
                         <ExitToAppIcon /> <span>Вийти</span>

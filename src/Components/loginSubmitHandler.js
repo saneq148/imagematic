@@ -10,7 +10,6 @@ function loginSubmitHandler(values, setErrors, setSubmitting, setIsLoggedIn) {
             localStorage.setItem("user", JSON.stringify(response.data.user));
             setSubmitting(false);
             localStorage.setItem("token", response.data.token);
-            console.log(response.data);
             setIsLoggedIn(true);
         })
         .catch((error) => {

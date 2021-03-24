@@ -2,9 +2,12 @@ import React from "react";
 
 function Home() {
     return (
-        <div className="container">
-            <h1>Hello, {JSON.parse(localStorage.getItem("user")).username}</h1>
-        </div>
+        <main className="main-content">
+            <div className="container">
+
+                <h1>Hello, {JSON.parse(localStorage.getItem("user")).username}</h1>
+            </div>
+        </main>
     );
 }
 

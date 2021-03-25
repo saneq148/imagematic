@@ -1,13 +1,16 @@
 import React from "react";
+import { Header } from "../Components";
 
 function Home() {
     return (
-        <main className="main-content">
-            <div className="container">
-
-                <h1>Hello, {JSON.parse(localStorage.getItem("user")).username}</h1>
+        <>
+            <Header />
+            <main className="main-content">
+                <div className="container">
+                    123
             </div>
-        </main>
+            </main>
+        </>
     );
 }
 

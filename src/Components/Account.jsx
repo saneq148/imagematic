@@ -5,10 +5,16 @@ import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import AddIcon from "@material-ui/icons/Add";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/actions/user";
+import { Redirect } from "react-router-dom";
 
 function Account() {
 
+    const dispatch = useDispatch();
+
     const [visibleMenu, setVisibleMenu] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
 
     const accountRef = React.useRef();
 
@@ -22,8 +28,10 @@ function Account() {
     function logOut() {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
-        window.location.reload();
+        setIsLoggedIn(false);
     }
+
+    dispatch(setUser(isLoggedIn));
 
     useEffect(() => {
         window.addEventListener("click", handleCloseUserMenu);
@@ -32,6 +40,12 @@ function Account() {
         };
     }, []);
 
+    if (!isLoggedIn) {
+        return (
+            <Redirect to="/login" />
+        );
+    }
+
     return (
         <div className={classnames(
             "account",
@@ -39,7 +53,7 @@ function Account() {
         )} ref={accountRef}>
             <div className="account__button" onClick={() => setVisibleMenu(!visibleMenu)}>
                 <span className="account__name">
-                    {JSON.parse(localStorage.getItem("user")).username}
+                    Username
                 </span>
                 <div className="account__icon">
                     <AccountCircleIcon />

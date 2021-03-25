@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "../Logo.svg";
 import Account from "./Account";
 
 function Header() {
-    return localStorage.getItem("token") ? (
+    return (
         <div className="header-wrapper">
             <div className="container">
                 <header className="header">
@@ -30,9 +30,7 @@ function Header() {
                 </header>
             </div>
         </div>
-    ) : (
-            <></>
-        );
+    );
 }
 
 export default Header;

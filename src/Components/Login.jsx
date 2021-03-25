@@ -7,17 +7,25 @@ import { Link, Redirect } from "react-router-dom";
 import Schema from "./loginValidationSchema";
 import loginSubmitHandler from "./loginSubmitHandler";
 import { ThreeDots } from "svg-loaders-react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../redux/actions/user";
+
 
 function Login() {
+
     const [showPassword, setShowPassword] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+    const dispatch = useDispatch();
+
+    dispatch(setUser(!!localStorage.getItem("token")));
+
     if (isLoggedIn) {
-        //window.location.reload(); //!  <-- Не виводить сторінку <Home /> після редіректу без перезавантаження
         return (
             <Redirect to="/" />
         );
     }
+
 
     return (
         <Formik

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Header.scss";
 import { ReactComponent as Logo } from "../Logo.svg";
 import Account from "./Account";
@@ -10,23 +10,20 @@ function Header() {
             <div className="container">
                 <header className="header">
                     <div className="header__logo">
-                        <Link to="/">
+                        <NavLink to="/" exact activeClassName="root">
                             <Logo />
                             <span>Imagematic</span>
-                        </Link>
+                        </NavLink>
                     </div>
-                    <nav></nav>
+                    <nav className="header__links">
+                        <ul>
+                            <li><NavLink to="/" exact activeClassName="active">Головна</NavLink></li>
+                            <li><NavLink to="/categories" exact activeClassName="active">Категорії</NavLink></li>
+                        </ul>
+                    </nav>
                     <div className="header__user">
                         <Account />
                     </div>
-                    {/*<div
-                        onClick={() => {
-                            localStorage.removeItem("token");
-                            window.location.reload();
-                        }}
-                    >
-                        Вийти
-                    </div>*/}
                 </header>
             </div>
         </div>

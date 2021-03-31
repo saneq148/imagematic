@@ -5,11 +5,15 @@ $header-min-height: 8rem;
 
 $primary: #FE5433;
 
+$primary-green: #34fe56;
+$primary-yellow: #feed34;
+
 $grey-50: #FAFAFA;
 $grey-100: #d1d1d1;
 $grey-200: #D4D4D4;
 $grey-300: #9f9f9f;
 $grey-400: #6c7382;
+$grey-900: #464646;
 
 $red-100: #ffb0b0;
 $red-200: #ff4d47;
@@ -17,6 +21,7 @@ $red-300: #fc3d3d;
 
 $blue-400: #3b90f3;
 
+$green-200: darken($primary-green, 27%);
 $green-300: #2aaa46;
 $green-500: #02791c;
 

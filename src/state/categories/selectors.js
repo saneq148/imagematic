@@ -1,0 +1,1 @@
+export const getCategories = state => state.categoriesReducer.items;

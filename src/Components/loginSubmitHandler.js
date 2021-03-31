@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function loginSubmitHandler(values, setErrors, setSubmitting, setIsLoggedIn) {
+function loginSubmitHandler(values, setErrors, setSubmitting, login) {
     axios
         .post("http://127.0.0.1:3333/api/auth/login", {
             username: values.login,
@@ -8,23 +8,28 @@ function loginSubmitHandler(values, setErrors, setSubmitting, setIsLoggedIn) {
         })
         .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data.user));
-            setSubmitting(false);
             localStorage.setItem("token", response.data.token);
-            setIsLoggedIn(true);
+            login(response.data.user.id);
         })
         .catch((error) => {
-            if (error.response) {
-                setErrors({
-                    login: error.response.data.errors.login,
-                });
-                setErrors({
-                    password: error.response.data.errors.password,
-                });
-            } else if (!error.response) {
+            if (!error.response) {
                 setErrors({
                     server: "Сервер недоступний",
                 });
             }
+            else if (error.response.data.errors) {
+                setErrors({
+                    password: error.response.data.errors.password,
+                });
+            }
+            else if (error.response.data) {
+                console.log(error.response.data);
+                setErrors({
+                    login: error.response.data[0].message,
+                });
+            }
+        })
+        .finally(() => {
             setSubmitting(false);
         });
 }

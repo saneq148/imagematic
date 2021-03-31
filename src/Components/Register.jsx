@@ -3,26 +3,27 @@ import { Formik } from "formik";
 import classnames from "classnames";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import CloseIcon from "@material-ui/icons/Close";
 import { Link, Redirect } from "react-router-dom";
 import Schema from "./registerValidationSchema";
 import { ThreeDots } from "svg-loaders-react";
 import RegisterSubmitHandler from "./registerSubmitHandler";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedIn } from "../state/user/actions";
+import { getUserLoggedIn } from "../state/user/selectors";
 
 function Register() {
+
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const dispatch = useDispatch();
+    const handleLogin = (id) => dispatch(setLoggedIn(id));
+
+    const isLoggedIn = useSelector(getUserLoggedIn);
 
     if (isLoggedIn) {
-        window.location.reload();
-        return (
-            <Redirect
-                push
-                to={{
-                    pathname: "/",
-                }}
-            />
-        );
-    }
+        return <Redirect to="/" />;
+    };
 
     return (
         <Formik
@@ -35,18 +36,11 @@ function Register() {
                 phone: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                RegisterSubmitHandler(
-                    values,
-                    {
-                        setErrors,
-                        setSubmitting,
-                    },
-                    setIsLoggedIn
-                );
+                RegisterSubmitHandler(values, setErrors, setSubmitting, handleLogin);
             }}
             validationSchema={Schema}
         >
-            {({ values, errors, handleChange, handleSubmit, touched, isSubmitting }) => (
+            {({ values, errors, handleChange, handleSubmit, touched, isSubmitting, setErrors }) => (
                 <main className="auth__content">
                     <header className="auth__header">
                         <div className="auth__logo">
@@ -55,11 +49,7 @@ function Register() {
                         <div className="auth__title">Створіть новий профіль</div>
                     </header>
                     <form className="auth__form" onSubmit={handleSubmit} autoComplete="off">
-                        {errors.server ? (
-                            <div className="auth__error">Помилка: {JSON.stringify(errors.server)}</div>
-                        ) : (
-                            ""
-                        )}
+                        {errors.server ? <div className="auth__error"><div className="auth__error-close" onClick={() => setErrors({ server: null })}><CloseIcon fontSize="large" /></div><div className="auth__error-message">Помилка: {errors.server}</div></div> : ""}
                         <div
                             className={classnames(
                                 "auth__input",
@@ -88,8 +78,8 @@ function Register() {
                             {Object.keys(errors)[0] === "login" && touched.login && errors.login ? (
                                 <div className="auth__error-message">{errors.login}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -105,7 +95,7 @@ function Register() {
                         >
                             <label className="auth__show-password" title="Показати пароль">
                                 <input type="checkbox" onChange={() => setShowPassword(!showPassword)} />
-                                {!showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                {!showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                             </label>
                             <input
                                 type={!showPassword ? "password" : "text"}
@@ -123,8 +113,8 @@ function Register() {
                             {Object.keys(errors)[0] === "password" && touched.password && errors.password ? (
                                 <div className="auth__error-message">{errors.password}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -154,12 +144,12 @@ function Register() {
                                 Підтвердження паролю
                             </label>
                             {Object.keys(errors)[0] === "passwordConfirm" &&
-                            touched.passwordConfirm &&
-                            errors.passwordConfirm ? (
-                                <div className="auth__error-message">{errors.passwordConfirm}</div>
-                            ) : (
-                                ""
-                            )}
+                                touched.passwordConfirm &&
+                                errors.passwordConfirm ? (
+                                    <div className="auth__error-message">{errors.passwordConfirm}</div>
+                                ) : (
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -189,8 +179,8 @@ function Register() {
                             {Object.keys(errors)[0] === "firstName" && touched.firstName && errors.firstName ? (
                                 <div className="auth__error-message">{errors.firstName}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -220,8 +210,8 @@ function Register() {
                             {Object.keys(errors)[0] === "lastName" && touched.lastName && errors.lastName ? (
                                 <div className="auth__error-message">{errors.lastName}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div
                             className={classnames(
@@ -251,8 +241,8 @@ function Register() {
                             {Object.keys(errors)[0] === "phone" && touched.phone && errors.phone ? (
                                 <div className="auth__error-message">{errors.phone}</div>
                             ) : (
-                                ""
-                            )}
+                                    ""
+                                )}
                         </div>
                         <div className="auth__submit">
                             <button type="submit" disabled={isSubmitting}>

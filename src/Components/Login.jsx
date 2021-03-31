@@ -3,28 +3,27 @@ import { Formik } from "formik";
 import classnames from "classnames";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
+import CloseIcon from "@material-ui/icons/Close";
 import { Link, Redirect } from "react-router-dom";
 import Schema from "./loginValidationSchema";
 import loginSubmitHandler from "./loginSubmitHandler";
 import { ThreeDots } from "svg-loaders-react";
-import { useDispatch } from "react-redux";
-import { setUser } from "../redux/actions/user";
-
+import { useDispatch, useSelector } from "react-redux";
+import { setLoggedIn } from "../state/user/actions";
+import { getUserLoggedIn } from "../state/user/selectors";
 
 function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const dispatch = useDispatch();
+    const handleLogin = (id) => dispatch(setLoggedIn(id));
 
-    dispatch(setUser(!!localStorage.getItem("token")));
+    const isLoggedIn = useSelector(getUserLoggedIn);
 
     if (isLoggedIn) {
-        return (
-            <Redirect to="/" />
-        );
-    }
+        return <Redirect to="/" />;
+    };
 
 
     return (
@@ -34,11 +33,11 @@ function Login() {
                 password: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                loginSubmitHandler(values, setErrors, setSubmitting, setIsLoggedIn);
+                loginSubmitHandler(values, setErrors, setSubmitting, handleLogin);
             }}
             validationSchema={Schema}
         >
-            {({ values, errors, handleChange, handleSubmit, isSubmitting, touched }) => (
+            {({ values, errors, handleChange, handleSubmit, isSubmitting, touched, setErrors }) => (
                 <main className="auth__content">
                     <header className="auth__header">
                         <div className="auth__logo">
@@ -47,7 +46,7 @@ function Login() {
                         <div className="auth__title">Увійдіть в акаунт</div>
                     </header>
                     <form className="auth__form" onSubmit={handleSubmit} autoComplete="off">
-                        {errors.server ? <div className="auth__error">Помилка: {errors.server}</div> : ""}
+                        {errors.server ? <div className="auth__error"><div className="auth__error-close" onClick={() => setErrors({ server: null })}><CloseIcon fontSize="large" /></div><div className="auth__error-message">Помилка: {errors.server}</div></div> : ""}
                         <div
                             className={classnames(
                                 "login-username",
@@ -95,7 +94,7 @@ function Login() {
                         >
                             <label className="auth__show-password" title="Показати пароль">
                                 <input type="checkbox" onChange={() => setShowPassword(!showPassword)} />
-                                {!showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                                {!showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                             </label>
                             <input
                                 type={!showPassword ? "password" : "text"}

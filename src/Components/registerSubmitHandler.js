@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function RegisterSubmitHandler(values, { setErrors, setSubmitting }, setIsLoggedIn) {
+function RegisterSubmitHandler(values, setErrors, setSubmitting, login) {
     axios
         .post("http://127.0.0.1:3333/api/auth/register", {
             username: values.login,
@@ -13,7 +13,7 @@ function RegisterSubmitHandler(values, { setErrors, setSubmitting }, setIsLogged
             localStorage.setItem("token", response.data.token.token);
             localStorage.setItem("user", JSON.stringify(response.data.user));
             setSubmitting(false);
-            setIsLoggedIn(true);
+            login(response.data.user.id);
         })
         .catch((error) => {
             if (error.response) {

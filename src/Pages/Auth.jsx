@@ -3,9 +3,6 @@ import "./Auth.scss";
 import PropTypes from "prop-types";
 
 function Auth({ children }) {
-    /*if (localStorage.getItem('token')) {
-        return <Redirect to={{ pathname: "/" }} />;
-    }*/
     return (
         <div className="container">
             <div className="auth">{children}</div>

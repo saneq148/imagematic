@@ -6,6 +6,8 @@ const initialState = {
     login: null,
     name: null,
     surname: null,
+    isFetching: false,
+    error: null,
 };
 
 const userReducer = (state = initialState, action) => {
@@ -23,29 +25,17 @@ const userReducer = (state = initialState, action) => {
             };
         case types.LOGOUT:
             return {
-                ...state,
-                isLoggedIn: false,
-                id: null,
+                ...initialState
             };
-        case types.SET_USER_ID:
+        case types.SET_USER_SUCCESS:
             return {
                 ...state,
-                id: action.payload,
-            };
-        case types.SET_USER_LOGIN:
-            return {
-                ...state,
-                login: action.payload,
-            };
-        case types.SET_USER_NAME:
-            return {
-                ...state,
-                name: action.payload,
-            };
-        case types.SET_USER_SURNAME:
-            return {
-                ...state,
-                surname: action.payload,
+                isLoggedIn: true,
+                id: action.payload.id,
+                login: action.payload.username,
+                name: action.payload.first_name,
+                surname: action.payload.last_name,
+                isFetching: false,
             };
         default:
             return state;

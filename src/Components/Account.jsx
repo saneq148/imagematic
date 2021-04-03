@@ -7,10 +7,11 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setLoggedOut, setUserLogin, setUserName, setUserSurname } from "../state/user/actions";
+import { handleLogout } from "../state/user/actions";
 import { getUserId, getUserLogin, getUserName, getUserSurname } from "../state/user/selectors";
 import axios from "axios";
 import { Skeleton } from "@material-ui/lab";
+import { host } from "src/config";
 
 function Account() {
 
@@ -28,9 +29,7 @@ function Account() {
     }
 
     function logOut() {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        dispatch(setLoggedOut());
+        dispatch(handleLogout());
     }
 
     const userId = useSelector(getUserId);
@@ -40,15 +39,15 @@ function Account() {
 
     useEffect(() => {
         if (!userLogin) {
-            axios.get("http://127.0.0.1:3333/api/users/" + userId, {
+            axios.get(`${host}/api/users/${userId}`, {
                 params: {
                     token: localStorage.getItem("token"),
                 }
             })
                 .then(response => {
-                    dispatch(setUserLogin(response.data.model.username));
-                    dispatch(setUserName(response.data.model.first_name));
-                    dispatch(setUserSurname(response.data.model.last_name));
+                    //dispatch(setUserLogin(response.data.model.username));
+                    //dispatch(setUserName(response.data.model.first_name));
+                    //dispatch(setUserSurname(response.data.model.last_name));
                 });
         }
         window.addEventListener("click", handleCloseUserMenu);

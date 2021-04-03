@@ -12,13 +12,15 @@ function Home() {
 
     if (!isLoggedIn) {
         return (
-            <Auth>{<Login />}</Auth>
+            <Auth>
+                <Login />
+            </Auth>
         );
     }
 
     return (
         <>
-            < Header />
+            <Header />
             <main className="main-content">
                 <div className="container">
                     <Posts />

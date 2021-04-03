@@ -9,7 +9,7 @@ import Schema from "./loginValidationSchema";
 import loginSubmitHandler from "./loginSubmitHandler";
 import { ThreeDots } from "svg-loaders-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoggedIn } from "../state/user/actions";
+import { fetchUserLogin } from "../state/user/actions";
 import { getUserLoggedIn } from "../state/user/selectors";
 
 function Login() {
@@ -17,14 +17,21 @@ function Login() {
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useDispatch();
-    const handleLogin = (id) => dispatch(setLoggedIn(id));
-
-    const isLoggedIn = useSelector(getUserLoggedIn);
-
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
-    };
-
+    const handleLogin = (
+        login,
+        password,
+        setErrors,
+        setSubmitting
+    ) => dispatch(
+        fetchUserLogin(
+            {
+                login,
+                password,
+                setErrors,
+                setSubmitting
+            }
+        )
+    );
 
     return (
         <Formik
@@ -33,7 +40,9 @@ function Login() {
                 password: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                loginSubmitHandler(values, setErrors, setSubmitting, handleLogin);
+                //handleLogin(values.login, values.password, setErrors, setSubmitting);
+                //loginSubmitHandler(values, setErrors, setSubmitting, handleLogin);
+                dispatch(fetchUserLogin(values.login, values.password, setErrors, setSubmitting));
             }}
             validationSchema={Schema}
         >

@@ -1,10 +1,12 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
 import { Auth, Categories, Profile, Home } from "./Pages";
 import { Login, Register, Preloader } from "./Components";
 import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "src/state";
 
 function App() {
 
@@ -12,7 +14,7 @@ function App() {
 
     return (
         <div className="wrapper">
-            <Router>
+            <ConnectedRouter history={history}>
                 {!isLoggedIn ? <Redirect to="/" /> : null}
                 <Suspense fallback={<Preloader />} >
                     <Switch>
@@ -39,7 +41,7 @@ function App() {
                         </Route>
                     </Switch>
                 </Suspense>
-            </Router>
+            </ConnectedRouter>
         </div >
     );
 }

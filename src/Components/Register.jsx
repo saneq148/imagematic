@@ -4,26 +4,17 @@ import classnames from "classnames";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import CloseIcon from "@material-ui/icons/Close";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Schema from "./registerValidationSchema";
 import { ThreeDots } from "svg-loaders-react";
-import RegisterSubmitHandler from "./registerSubmitHandler";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoggedIn } from "../state/user/actions";
-import { getUserLoggedIn } from "../state/user/selectors";
+import { useDispatch } from "react-redux";
+import { fetchUserRegister } from "../state/user/actions";
 
 function Register() {
 
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useDispatch();
-    const handleLogin = (id) => dispatch(setLoggedIn(id));
-
-    const isLoggedIn = useSelector(getUserLoggedIn);
-
-    if (isLoggedIn) {
-        return <Redirect to="/" />;
-    };
 
     return (
         <Formik
@@ -36,7 +27,9 @@ function Register() {
                 phone: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                RegisterSubmitHandler(values, setErrors, setSubmitting, handleLogin);
+                //RegisterSubmitHandler(values, setErrors, setSubmitting, handleLogin);
+                //handleRegister(values.login, values.password, values.firstName, values.lastName, values.phone, setErrors, setSubmitting);
+                dispatch(fetchUserRegister(values.login, values.password, values.firstName, values.lastName, values.phone, setErrors, setSubmitting));
             }}
             validationSchema={Schema}
         >

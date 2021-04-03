@@ -1,8 +1,9 @@
 import axios from "axios";
+import { host } from "src/config";
 
 function loginSubmitHandler(values, setErrors, setSubmitting, login) {
     axios
-        .post("http://127.0.0.1:3333/api/auth/login", {
+        .post(`${host}/api/auth/login`, {
             username: values.login,
             password: values.password,
         })

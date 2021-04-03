@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Header } from "../Components";
 import "./Categories.scss";
 import "./Modal.scss";
-/*import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import TextField from "@material-ui/core/TextField";*/
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { Formik } from "formik";
@@ -21,14 +18,15 @@ import { setCategories, deleteCategory, editCategory } from "src/state/categorie
 import { ThreeDots } from "svg-loaders-react";
 import { Skeleton } from "@material-ui/lab";
 import { Dropdown, Input, Button, Form } from "semantic-ui-react";
-import "semantic-ui-css/components/dropdown.css";
-import "semantic-ui-css/components/input.css";
-import "semantic-ui-css/components/icon.css";
-import "semantic-ui-css/components/menu.css";
-import "semantic-ui-css/components/transition.css";
-import "semantic-ui-css/components/button.css";
-import "semantic-ui-css/components/form.css";
-import "semantic-ui-css/components/label.css";
+import "semantic-ui-css/components/dropdown.min.css";
+import "semantic-ui-css/components/input.min.css";
+import "semantic-ui-css/components/icon.min.css";
+import "semantic-ui-css/components/menu.min.css";
+import "semantic-ui-css/components/transition.min.css";
+import "semantic-ui-css/components/button.min.css";
+import "semantic-ui-css/components/form.min.css";
+import "semantic-ui-css/components/label.min.css";
+import { host } from "src/config";
 
 
 function Categories() {
@@ -89,7 +87,6 @@ function Categories() {
     const [orderBy, setOrderBy] = useState("created_at");
     const [currentPage, setCurrentPage] = useState(1);
     const [pagesCount, setPagesCount] = useState(0);
-    console.log(quantity);
 
     const setCurrentPageHandler = (event, value) => {
         setCurrentPage(value);
@@ -105,7 +102,7 @@ function Categories() {
             setCurrentPage(1);
         }
         setFetchingCategories(true);
-        axios.get("http://127.0.0.1:3333/api/categories", {
+        axios.get(`${host}/api/categories`, {
             params: {
                 page: currentPage,
                 limit: quantity,
@@ -129,7 +126,7 @@ function Categories() {
 
     const addNewItemSubmit = () => {
         setFetchCategory(true);
-        axios.post("http://127.0.0.1:3333/api/categories", {
+        axios.post(`${host}/api/categories`, {
             title: addNewItemTitle,
             token: localStorage.getItem("token")
         })
@@ -146,7 +143,7 @@ function Categories() {
 
     const deleteItem = (id) => {
         setFetchCategory(true);
-        axios.delete("http://127.0.0.1:3333/api/categories/" + id, {
+        axios.delete(`${host}/api/categories/` + id, {
             params: {
                 token: localStorage.getItem("token")
             }
@@ -165,7 +162,7 @@ function Categories() {
 
     const editItem = (id, title) => {
         setFetchCategory(true);
-        axios.put("http://127.0.0.1:3333/api/categories/" + id, {
+        axios.put(`${host}/api/categories/` + id, {
             title: title,
             token: localStorage.getItem("token")
         })
@@ -295,7 +292,6 @@ function Categories() {
                                         compact
                                         options={orderOptions}
                                         name="order"
-                                        //defaultValue={order}
                                         onChange={handleOrderChange}
                                         className="column"
                                     />
@@ -305,7 +301,6 @@ function Categories() {
                                         compact
                                         options={orderByOptions}
                                         name="orderBy"
-                                        //defaultValue={orderBy}
                                         onChange={handleOrderByChange}
                                         className="column"
                                     />

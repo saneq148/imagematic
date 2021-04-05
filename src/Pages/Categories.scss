@@ -1,24 +1,13 @@
 @import "../scss/vars";
 @import "../scss/mixin";
 
-.page-title {
-    font-size: 40px;
-    font-weight: 100;
-    padding: 5rem 0;
-    font-family: "HelveticaNeueCyr";
-    h1 {
-        font-weight: inherit;
-        font-size: inherit;
-        font-family: inherit;
-        margin: 0;
-    }
-}
-
 .categories {
     display: grid;
     padding-bottom: 1rem;
     grid-template-columns: 1fr;
     column-gap: 1rem;
+    margin: 0;
+    padding: 1rem 0;
     @include tablet() {
         grid-template-columns: 1fr 1fr;
     }
@@ -33,65 +22,6 @@
             text-align: center;
         }
     }
-    .category {
-        width: 100%;
-        background-color: white;
-        transition: background-color .2s ease-in-out, color .2s ease-in-out;
-        height: 30rem;
-        border: 1px solid $grey-100;
-        border-radius: 10px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin: 0 0 1rem 0;
-        position: relative;
-        overflow: hidden;
-        &--loading {
-            position: relative;
-            span {
-                position: absolute;
-                inset: 0;
-                height: 100%;
-            }
-        }
-        &:hover {
-            background-color: $grey-900;
-            color: white;
-            .category__edit, .category__delete, .category__date {
-                top: 1.5rem;
-            }
-        }
-        &__title {
-            text-transform: uppercase;
-            font-size: 5rem;
-            font-weight: 100;
-            padding: 0 1.5rem;
-            word-wrap: break-word;
-            max-width: 100%;
-            text-align: center;
-            font-family: "HelveticaNeueCyr";
-        }
-        &__edit, &__delete, &__date {
-            position: absolute;
-            top: -100px;
-            transition: top .2s ease-out;
-            cursor: pointer;
-            svg {
-                width: 3rem;
-                height: 3rem;
-            }
-        }
-        &__edit {
-            left: 1.5rem;
-        }
-        &__delete {
-            right: 1.5rem;
-        }
-        &__date {
-            left: calc(1.5rem + 3rem + 1.5rem);
-            font-size: 15px;
-        }
-    }
 }
 
 .filters {
@@ -101,6 +31,10 @@
     gap: .5rem;
     flex-direction: column;
     flex-wrap: wrap;
+    @include small() {
+        align-items: flex-end;
+        flex-grow: 1;
+    }
     input {
         font-family: inherit!important;
     }
@@ -108,11 +42,42 @@
         display: flex;
         gap: 1rem;
     }
+    &__input {
+        display: flex;
+        align-items: flex-end;
+        gap: .5rem;
+        justify-content: flex-start;
+        flex-direction: row;
+        flex-wrap: wrap;
+        @include small() {
+            justify-content: flex-end;
+            flex-direction: row;
+        }
+    }
+    &__group {
+        display: flex;
+        gap: .5rem;
+        flex-wrap: wrap;
+        align-items: flex-end;
+        justify-content: flex-end;
+    }
+    &__field {
+        display: flex;
+        flex-direction: column;
+        label {
+            font-size: 1.1rem;
+            margin-bottom: .5rem;
+        }
+    }
 }
 
 .add-new-category {
     font-size: 16px;
-    margin: 2rem auto 2rem 0;
+    margin: 0;
+    flex-shrink: 0;
+    @include small() {
+        align-self: flex-end;
+    }
     button {
         background-color: $grey-900;
         color: white;
@@ -129,8 +94,140 @@
     }
 }
 
+.categories--big .category {
+    width: 100%;
+    background-color: white;
+    transition: background-color .2s ease-in-out, color .2s ease-in-out;
+    height: 30rem;
+    border: 1px solid $grey-100;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 1rem 0;
+    position: relative;
+    overflow: hidden;
+    &--loading {
+        position: relative;
+        span {
+            position: absolute;
+            inset: 0;
+            height: 100%;
+        }
+    }
+    &:hover {
+        background-color: $grey-900;
+        color: white;
+        .category__edit, .category__delete, .category__date {
+            top: 1.5rem;
+        }
+    }
+    &__title {
+        text-transform: uppercase;
+        font-size: 5rem;
+        font-weight: 100;
+        padding: 0 1.5rem;
+        word-wrap: break-word;
+        max-width: 100%;
+        text-align: center;
+        font-family: "HelveticaNeueCyr";
+    }
+    &__edit, &__delete, &__date {
+        position: absolute;
+        top: -100px;
+        transition: top .2s ease-out;
+        cursor: pointer;
+        svg {
+            width: 3rem;
+            height: 3rem;
+        }
+    }
+    &__edit {
+        left: 1.5rem;
+    }
+    &__delete {
+        right: 5.5rem;
+    }
+    &__date {
+        left: calc(1.5rem + 3rem + 1.5rem);
+        font-size: 15px;
+    }
+    &__checkbox {
+        position: absolute;
+        top: 1.8rem;
+        right: 1.8rem;
+    }
+}
+
+.categories--small {
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 0;
+    .category { 
+        width: 100%;
+        background-color: #fff;
+        //border: 1px solid $grey-300;
+        //margin-bottom: 1rem;
+        //border-radius: 3px;
+        border-bottom: 1px solid $grey-100;
+        padding: 1.3rem 1.7rem;
+        display: flex;
+        align-items: center;
+        &__edit {
+            order: 0;
+            margin: 0 1rem 0 0;
+            @extend %pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            svg, span {
+                width: 2.5rem;
+                height: 2.5rem;
+                display: block;
+            }
+        }
+        &__title {
+            order: 1;
+            flex-grow: 1;
+            font-size: 17px;
+        }
+        &__date {
+            order: 2;
+            font-size: 1.3rem;
+        }
+        &__delete {
+            order: 3;
+            margin: 0 1rem;
+            @extend %pointer;
+            width: 2.5rem;
+            height: 2.5rem;
+            svg, span {
+                width: 2.5rem;
+                height: 2.5rem;
+                display: block;
+            }
+        }
+        &__checkbox {
+            order: 4;
+        }
+    }
+}
+
 .categoires-pagination {
     display: flex;
     justify-content: center;
-    margin-bottom: 1rem;
+    padding: 2rem 0;
+}
+
+
+.message {
+    .header {
+        font-family: "HelveticaCyr", sans-serif!important;
+        font-size: 2em;
+        line-height: 1;
+    }
+    p {
+        font-size: 1.5rem;
+    }
 }

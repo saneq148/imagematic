@@ -28,14 +28,10 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const persistedReducer = (history) => persistReducer(persistConfig, rootReducer(history));
 
-export const store = createStore(persistedReducer(history), /* preloadedState, */
+export const store = createStore(persistedReducer(history),
     composeEnhancers(
         applyMiddleware(routerMiddleware(history), thunk)
     )
 );
-
-/*export const store = createStore(persistedReducer,
-    window.__REDUX_DEVTOOLS_EXTENSION__
-    && window.__REDUX_DEVTOOLS_EXTENSION__());*/
 
 export const persistor = persistStore(store);

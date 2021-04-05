@@ -4,9 +4,7 @@
         "es2021": true
     },
     "extends": [
-        "eslint:recommended",
-        "plugin:react/recommended",
-        "prettier"
+        "plugin:react/recommended"
     ],
     "parserOptions": {
         "ecmaFeatures": {
@@ -20,18 +18,10 @@
     ],
     "rules": {
         "no-unused-vars": "warn",
-        "no-var": "warn",
         "semi": "warn",
         "quotes": [
-            1,
+            "warn",
             "double"
-        ],
-        "no-console": "warn"
-        /*"indent": "warn",
-        "no-multi-spaces": "warn",
-        "space-in-parens": "warn",
-        "no-multiple-empty-lines": "warn",
-        "prefer-const": "warn",
-        "no-use-before-define": "warn"*/
+        ]
     }
 }

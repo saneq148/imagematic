@@ -13,11 +13,11 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: #FAFAFA;
+    font-family: "Roboto", sans-serif!important;
 }
 
 input, button {
     font-family: "Roboto", sans-serif!important;
-    font: "Roboto", sans-serif!important;
 }
 
 @import url("./fonts/HelveticaNeue/stylesheet.css");

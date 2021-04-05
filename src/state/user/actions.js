@@ -1,11 +1,11 @@
 import axios from "axios";
-import { host } from "src/config";
+import { HOST } from "src/config";
 import * as types from "./types";
 import { push } from "connected-react-router";
 
 export const fetchUserLogin = (login, password, setErrors, setSubmitting) => {
     return dispatch => {
-        axios.post(`${host}/api/auth/login`, {
+        axios.post(`${HOST}/api/auth/login`, {
             username: login,
             password
         })
@@ -40,7 +40,7 @@ export const fetchUserLogin = (login, password, setErrors, setSubmitting) => {
 
 export const fetchUserRegister = (username, password, first_name, last_name, phone, setErrors, setSubmitting) => {
     return dispatch => {
-        axios.post(`${host}/api/auth/register`, {
+        axios.post(`${HOST}/api/auth/register`, {
             username,
             password,
             first_name,

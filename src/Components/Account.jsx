@@ -11,7 +11,7 @@ import { handleLogout } from "../state/user/actions";
 import { getUserId, getUserLogin, getUserName, getUserSurname } from "../state/user/selectors";
 import axios from "axios";
 import { Skeleton } from "@material-ui/lab";
-import { host } from "src/config";
+import { HOST } from "src/config";
 
 function Account() {
 
@@ -39,7 +39,7 @@ function Account() {
 
     useEffect(() => {
         if (!userLogin) {
-            axios.get(`${host}/api/users/${userId}`, {
+            axios.get(`${HOST}/api/users/${userId}`, {
                 params: {
                     token: localStorage.getItem("token"),
                 }

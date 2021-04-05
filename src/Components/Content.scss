@@ -1,0 +1,18 @@
+@import "src/scss/mixin";
+
+.content-header {
+    padding: 5rem 0 2rem 0;
+    &__title h1 {
+        font-size: 4rem;
+        font-family: "HelveticaCyr", sans-serif;
+        font-weight: 100;
+        margin: 0;
+    }
+    &__nav {
+        display: flex;
+        flex-direction: column;
+        @include small() {
+            flex-direction: row;
+        }
+    }
+}

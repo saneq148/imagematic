@@ -1,1 +1,9 @@
 export const getCategories = state => state.categoriesReducer.items;
+export const getCategoriesError = state => state.categoriesReducer.error;
+export const getCategoriesFetching = state => state.categoriesReducer.fetching;
+export const getCategoriesLoaded = state => state.categoriesReducer.loaded;
+export const getCategoriesCurrentPage = state => state.categoriesReducer.currentPage;
+export const getCategoriesBigLayout = state => state.categoriesReducer.bigLayout;
+export const getCategoriesPagesCount = state => state.categoriesReducer.pagesCount;
+export const getCategoryFetching = state => state.categoriesReducer.categoryFetching;
+export const getCategoryError = state => state.categoriesReducer.categoryError;

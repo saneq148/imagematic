@@ -27,8 +27,6 @@ function Register() {
                 phone: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                //RegisterSubmitHandler(values, setErrors, setSubmitting, handleLogin);
-                //handleRegister(values.login, values.password, values.firstName, values.lastName, values.phone, setErrors, setSubmitting);
                 dispatch(fetchUserRegister(values.login, values.password, values.firstName, values.lastName, values.phone, setErrors, setSubmitting));
             }}
             validationSchema={Schema}

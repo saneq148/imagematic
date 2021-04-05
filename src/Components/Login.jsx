@@ -4,34 +4,17 @@ import classnames from "classnames";
 import VisibilityIcon from "@material-ui/icons/Visibility";
 import VisibilityOffIcon from "@material-ui/icons/VisibilityOff";
 import CloseIcon from "@material-ui/icons/Close";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Schema from "./loginValidationSchema";
-import loginSubmitHandler from "./loginSubmitHandler";
 import { ThreeDots } from "svg-loaders-react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserLogin } from "../state/user/actions";
-import { getUserLoggedIn } from "../state/user/selectors";
+import { useDispatch } from "react-redux";
+import { fetchUserLogin } from "src/state/user/actions";
 
 function Login() {
 
     const [showPassword, setShowPassword] = useState(false);
 
     const dispatch = useDispatch();
-    const handleLogin = (
-        login,
-        password,
-        setErrors,
-        setSubmitting
-    ) => dispatch(
-        fetchUserLogin(
-            {
-                login,
-                password,
-                setErrors,
-                setSubmitting
-            }
-        )
-    );
 
     return (
         <Formik
@@ -40,8 +23,6 @@ function Login() {
                 password: "",
             }}
             onSubmit={(values, { setErrors, setSubmitting }) => {
-                //handleLogin(values.login, values.password, setErrors, setSubmitting);
-                //loginSubmitHandler(values, setErrors, setSubmitting, handleLogin);
                 dispatch(fetchUserLogin(values.login, values.password, setErrors, setSubmitting));
             }}
             validationSchema={Schema}

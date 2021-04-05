@@ -8,25 +8,30 @@ import { useSelector } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "src/state";
 
+
 function App() {
 
-    const isLoggedIn = useSelector(getUserLoggedIn);
+    const isAuthenticated = useSelector(getUserLoggedIn);
 
     return (
         <div className="wrapper">
             <ConnectedRouter history={history}>
-                {!isLoggedIn ? <Redirect to="/" /> : null}
                 <Suspense fallback={<Preloader />} >
                     <Switch>
-                        <Route path="/login" exact>
-                            <Auth>{<Login />}</Auth>
-                        </Route>
-                        <Route path="/register" exact>
-                            <Auth>{<Register />}</Auth>
-                        </Route>
                         <Route path="/" exact>
                             <Home />
                         </Route>
+                        <Route path="/login" exact>
+                            <Auth>
+                                <Login />
+                            </Auth>
+                        </Route>
+                        <Route path="/register" exact>
+                            <Auth>
+                                <Register />
+                            </Auth>
+                        </Route>
+                        {!isAuthenticated && <Redirect to="/" />}
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>

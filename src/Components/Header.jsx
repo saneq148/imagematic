@@ -8,20 +8,20 @@ function Header() {
     return (
         <div className="header-wrapper">
             <div className="container">
-                <header className="header">
-                    <div className="header__logo">
+                <header className="page-header">
+                    <div className="page-header__logo">
                         <NavLink to="/" exact activeClassName="root">
                             <Logo />
                             <span>Imagematic</span>
                         </NavLink>
                     </div>
-                    <nav className="header__links">
+                    <nav className="page-header__links">
                         <ul>
                             <li><NavLink to="/" exact activeClassName="active">Головна</NavLink></li>
                             <li><NavLink to="/categories" exact activeClassName="active">Категорії</NavLink></li>
                         </ul>
                     </nav>
-                    <div className="header__user">
+                    <div className="page-header__user">
                         <Account />
                     </div>
                 </header>

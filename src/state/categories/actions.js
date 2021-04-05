@@ -44,7 +44,7 @@ export const fetchCategories = (limit, order, orderBy, q) => {
     };
 };
 
-export const addCategory = (title, reloadCategories, closeModalWindow) => {
+export const addCategory = (title, reloadCategories, closeModalWindow, successMessage) => {
     return dispatch => {
         dispatch(setCategoryFetching(true));
         axios.post(`${HOST}/api/categories`, {
@@ -54,6 +54,7 @@ export const addCategory = (title, reloadCategories, closeModalWindow) => {
             .then(() => {
                 reloadCategories();
                 closeModalWindow();
+                successMessage("Категорія додана");
             })
             .catch((e) => {
                 console.log(e.message);
@@ -64,7 +65,7 @@ export const addCategory = (title, reloadCategories, closeModalWindow) => {
     };
 };
 
-export const editCategory = (id, title, closeModalWindow) => {
+export const editCategory = (id, title, closeModalWindow, successMessage) => {
     return dispatch => {
         dispatch(setCategoryFetching(true));
         axios.put(`${HOST}/api/categories/${id}`, {
@@ -74,6 +75,7 @@ export const editCategory = (id, title, closeModalWindow) => {
             .then(() => {
                 dispatch(editCategoryLocaly({ id, title }));
                 closeModalWindow();
+                successMessage("Назву змінено");
             })
             .catch((err) => {
                 console.log(err.message);
@@ -84,7 +86,7 @@ export const editCategory = (id, title, closeModalWindow) => {
     };
 };
 
-export const deleteCategory = (id, reloadCategories, closeModalWindow) => {
+export const deleteCategory = (id, reloadCategories, closeModalWindow, successMessage) => {
     return dispatch => {
         dispatch(setCategoryFetching(true));
         axios.delete(`${HOST}/api/categories/${id}`, {
@@ -95,6 +97,7 @@ export const deleteCategory = (id, reloadCategories, closeModalWindow) => {
             .then(() => {
                 dispatch(deleteCategoryLocaly(id));
                 closeModalWindow();
+                successMessage("Категорію видалено");
             })
             .catch((e) => {
                 dispatch(setCategoryError(e.message));

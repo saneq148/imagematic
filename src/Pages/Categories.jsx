@@ -41,6 +41,9 @@ import classnames from "classnames";
 import Checkbox from "src/Components/Checkbox";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { Alert, AlertTitle } from "@material-ui/lab";
 
 
 function Categories() {
@@ -123,17 +126,29 @@ function Categories() {
         dispatch(setCurrentPage(value));
     };
 
+    const [successMessageOpened, setSuccessMessageOpened] = useState(false);
+    const [successMessageText, setSuccessMessageText] = useState("Успішно видалено");
+
+    const successMessage = (title) => {
+        setSuccessMessageOpened(true);
+        setSuccessMessageText(title);
+    };
+
+    const closeSuccessMessage = () => {
+        setSuccessMessageOpened(false);
+    };
+
     const addNewItemSubmit = (e) => {
         e.preventDefault();
-        dispatch(addCategory(addNewItemTitle, loadCategories, handleAddNewItemClose));
+        dispatch(addCategory(addNewItemTitle, loadCategories, handleAddNewItemClose, successMessage));
     };
 
     const deleteItem = (id) => {
-        dispatch(deleteCategory(id, loadCategories, handleDeleteModalClose));
+        dispatch(deleteCategory(id, loadCategories, handleDeleteModalClose, successMessage));
     };
 
     const editItem = (id, title) => {
-        dispatch(editCategory(id, title, handleEditModalClose));
+        dispatch(editCategory(id, title, handleEditModalClose, successMessage));
     };
 
     const orderOptions = [
@@ -176,11 +191,23 @@ function Categories() {
         setQuery(data.value);
     };
 
+    function AlertMessage(props) {
+        return <MuiAlert elevation={6} variant="filled" {...props} />;
+    }
+
     return (
         <>
             <Helmet>
                 <title>{SITE_NAME} - Категорії</title>
             </Helmet>
+            <Snackbar open={successMessageOpened} autoHideDuration={600000000} onClose={closeSuccessMessage}>
+                <Alert severity="success" onClose={closeSuccessMessage}>
+                    <div className="alert-text">
+                        <AlertTitle>ОК</AlertTitle>
+                        {successMessageText}
+                    </div>
+                </Alert>
+            </Snackbar>
             <Header />
             <main className="main-content">
                 <div className="container">
@@ -311,10 +338,6 @@ function Categories() {
                                     </li>;
                                 })}
                             {items.length < 1 && !error && !fetchingCategories ? <div className="categories-placeholder"><h1>Категорії не знайдено</h1></div> : null}
-                            {error && <Message negative>
-                                <Message.Header>Сталася помилка:</Message.Header>
-                                <p>{error}</p>
-                            </Message>}
                             <Modal
                                 aria-labelledby="transition-modal-title"
                                 aria-describedby="transition-modal-description"
@@ -369,6 +392,12 @@ function Categories() {
                                 </Fade>
                             </Modal>
                         </ul>
+                        {error && <Alert severity="error">
+                            <div className="alert-text">
+                                <AlertTitle>Сталася помилка:</AlertTitle>
+                                {error}
+                            </div>
+                        </Alert>}
                         <div className="categoires-pagination">
                             {pagesCount > 1 ? <Pagination count={pagesCount} page={currentPage} onChange={setCurrentPageHandler} hidePrevButton hideNextButton /> : ""}
                         </div>

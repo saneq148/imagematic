@@ -19,13 +19,12 @@ import {
     getCategoriesFetching,
     getCategoriesCurrentPage,
     getCategoryFetching,
-    getCategoriesLoaded,
     getCategoriesPagesCount,
     getCategoriesBigLayout
 } from "src/state/categories/selectors";
-import { fetchCategories, addCategory, deleteCategory, editCategory, setCurrentPage, setBigLayout } from "src/state/categories/actions";
+import { fetchCategories, addCategory, deleteCategory, deleteCategories, editCategory, setCurrentPage, setBigLayout } from "src/state/categories/actions";
 import { ThreeDots } from "svg-loaders-react";
-import { Dropdown, Input, Button, Loader, Message } from "semantic-ui-react";
+import { Dropdown, Input, Button } from "semantic-ui-react";
 import "semantic-ui-css/components/dropdown.min.css";
 import "semantic-ui-css/components/input.min.css";
 import "semantic-ui-css/components/icon.min.css";
@@ -42,7 +41,6 @@ import Checkbox from "src/Components/Checkbox";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
 import Snackbar from "@material-ui/core/Snackbar";
-import MuiAlert from "@material-ui/lab/Alert";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
 
@@ -90,11 +88,13 @@ function Categories() {
     const useBigIcons = () => {
         dispatch(setBigLayout(true));
         setQuantity(6);
+        dispatch(setCurrentPage(1));
     };
 
     const useSmallIcons = () => {
         dispatch(setBigLayout(false));
         setQuantity(12);
+        dispatch(setCurrentPage(1));
     };
 
     const handleDeleteModalOpen = (id, title) => {
@@ -144,7 +144,7 @@ function Categories() {
     };
 
     const deleteItem = (id) => {
-        dispatch(deleteCategory(id, loadCategories, handleDeleteModalClose, successMessage));
+        dispatch(deleteCategory(id, loadCategories, handleDeleteModalClose, successMessage, setItemsToDelete));
     };
 
     const editItem = (id, title) => {
@@ -191,9 +191,31 @@ function Categories() {
         setQuery(data.value);
     };
 
-    function AlertMessage(props) {
-        return <MuiAlert elevation={6} variant="filled" {...props} />;
-    }
+    const [itemsToDelete, setItemsToDelete] = useState([]);
+    const [itemsToDeleteModalOpen, setItemsToDeleteModalOpen] = useState(false);
+
+    const handleItemsToDeleteModalClose = () => {
+        setItemsToDeleteModalOpen(false);
+    };
+
+    const handleItemsToDeleteModalOpen = () => {
+        setItemsToDeleteModalOpen(true);
+    };
+
+    const deleteItems = () => {
+        dispatch(deleteCategories(itemsToDelete, loadCategories, handleItemsToDeleteModalClose, successMessage, setItemsToDelete));
+    };
+
+    const handleDeleteCheckbox = (id, items = []) => {
+        if (!itemsToDelete.includes(id)) {
+            items[id] = id;
+            setItemsToDelete([...items]);
+        }
+        else {
+            items.splice(items.findIndex(item => item === id), 1);
+            setItemsToDelete([...items]);
+        }
+    };
 
     return (
         <>
@@ -293,6 +315,34 @@ function Categories() {
                                 </form>
                             </div>
                         </header>
+                        {itemsToDelete.filter(n => n).length > 0 && <div className="remove-selected">
+                            <Button icon="remove" content="Видалити вибрані категорії" size="massive" type="button" color="red" onClick={handleItemsToDeleteModalOpen}></Button>
+                            <Modal
+                                aria-labelledby="transition-modal-title"
+                                aria-describedby="transition-modal-description"
+                                className={classes.modal}
+                                open={itemsToDeleteModalOpen}
+                                onClose={handleItemsToDeleteModalClose}
+                                closeAfterTransition
+                                BackdropComponent={Backdrop}
+                                BackdropProps={{
+                                    timeout: 500,
+                                }}
+                            >
+                                <Fade in={itemsToDeleteModalOpen}>
+                                    <div className="modal">
+                                        <h1 className="modal__title">Видалити категорії</h1>
+                                        <form className="modal__form" onSubmit={(e) => { deleteItems(itemsToDelete); e.preventDefault(); }}>
+                                            <div className="modal__message">Ви впевнені, що хочете видалити вибрані категорії?</div>
+                                            <div className="modal__buttons modal__buttons--center">
+                                                <button className="modal__close" type="button" onClick={handleItemsToDeleteModalClose}>Назад</button>
+                                                <button className="modal__submit" type="submit" disabled={fetchingCategory}>{fetchingCategory ? <ThreeDots /> : "Видалити"}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </Fade>
+                            </Modal>
+                        </div>}
                         <ul className={classnames("categories", {
                             "categories--big": bigIcons,
                             "categories--small": !bigIcons
@@ -319,12 +369,12 @@ function Categories() {
                                         </li>);
                                 })
                                 : items.map((item) => {
-                                    return <li className="category" key={item.id}>
+                                    return <li className="category" key={item["created_at"]}>
                                         <div className="category__edit" title="Редагувати" onClick={() => handleEditModalOpen(item.id, item.title)}>
                                             <EditIcon />
                                         </div>
                                         <div className="category__date">
-                                            <time dateTime={item["created_at"]} title={`Створено ${item["created_at"]}`}>Updated {moment(item["created_at"], "YYYY-MM-DD hh:mm:ss").fromNow()}</time>
+                                            <time dateTime={item["created_at"]} title={`Створено ${item["created_at"]}`}>Created {moment(item["created_at"], "YYYY-MM-DD hh:mm:ss").fromNow()}</time>
                                         </div>
                                         <div className="category__delete" title="Видалити категорію" onClick={() => handleDeleteModalOpen(item.id, item.title)}>
                                             <DeleteIcon />
@@ -333,7 +383,7 @@ function Categories() {
                                             <span>{item.title}</span>
                                         </div>
                                         <div className="category__checkbox">
-                                            <Checkbox />
+                                            <Checkbox func={() => handleDeleteCheckbox(item.id, itemsToDelete)} selected={item.id === itemsToDelete[item.id]} />
                                         </div>
                                     </li>;
                                 })}

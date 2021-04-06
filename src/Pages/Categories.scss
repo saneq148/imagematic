@@ -38,9 +38,9 @@
     input {
         font-family: inherit!important;
     }
-    &__order div {
-        display: flex;
-        gap: 1rem;
+    &__view {
+        margin-top: 1.5rem;
+        margin-bottom: 1rem;
     }
     &__input {
         display: flex;
@@ -75,6 +75,10 @@
     font-size: 16px;
     margin: 0;
     flex-shrink: 0;
+    margin-top: 2rem;
+    button {
+        width: 100%;
+    }
     @include small() {
         align-self: flex-end;
     }
@@ -236,5 +240,17 @@
     font-size: 12px;
     div {
         font-size: 13px;
+    }
+}
+
+.remove-selected {
+    display: flex;
+    justify-content: flex-end;
+    padding: 1rem 0 2rem;
+    button {
+        width: 100%;
+        @include small{
+            width: auto;
+        }
     }
 }

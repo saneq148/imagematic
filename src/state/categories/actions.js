@@ -86,7 +86,7 @@ export const editCategory = (id, title, closeModalWindow, successMessage) => {
     };
 };
 
-export const deleteCategory = (id, reloadCategories, closeModalWindow, successMessage) => {
+export const deleteCategory = (id, reloadCategories, closeModalWindow, successMessage, resetDeleteItems) => {
     return dispatch => {
         dispatch(setCategoryFetching(true));
         axios.delete(`${HOST}/api/categories/${id}`, {
@@ -98,9 +98,34 @@ export const deleteCategory = (id, reloadCategories, closeModalWindow, successMe
                 dispatch(deleteCategoryLocaly(id));
                 closeModalWindow();
                 successMessage("Категорію видалено");
+                resetDeleteItems([]);
             })
             .catch((e) => {
                 dispatch(setCategoryError(e.message));
+            })
+            .finally(() => {
+                dispatch(setCategoryFetching(false));
+            });
+    };
+};
+
+export const deleteCategories = (categories, reloadCategories, closeModalWindow, successMessage, resetDeleteItems) => {
+    return dispatch => {
+        dispatch(setCategoryFetching(true));
+        axios.delete(`${HOST}/api/categories`, {
+            params: {
+                ids: JSON.stringify(categories.filter(n => n)),
+                token: localStorage.getItem("token")
+            }
+        })
+            .then(() => {
+                closeModalWindow();
+                successMessage("Категорії видалено");
+                reloadCategories();
+                resetDeleteItems([]);
+            })
+            .catch((err) => {
+                console.error(err.response);
             })
             .finally(() => {
                 dispatch(setCategoryFetching(false));

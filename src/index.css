@@ -16,6 +16,11 @@ body {
     font-family: "Roboto", sans-serif!important;
 }
 
+.wrapper {
+    padding-right: calc((100vw - 100%) * (-1));
+    width: 100%;
+}
+
 input, button {
     font-family: "Roboto", sans-serif!important;
 }

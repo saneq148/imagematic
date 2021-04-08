@@ -15,7 +15,7 @@ export const setBigLayout = (payload) => ({
 export const fetchCategories = (limit, order, orderBy, q) => {
     return (dispatch, getState) => {
         dispatch(setCategoriesFetching(true));
-        const currentPage = getState().categoriesReducer.currentPage;
+        const currentPage = getState().Categories.currentPage;
         axios.get(`${HOST}/api/categories`, {
             params: {
                 page: currentPage,

@@ -18,7 +18,7 @@ const initialState = {
     bigLayout: false,
 };
 
-export default function categoriesReducer(state = initialState, action) {
+export default function Categories(state = initialState, action) {
 
     const { type, payload } = action;
 

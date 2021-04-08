@@ -1,3 +1,5 @@
+@import "./vars";
+
 @mixin mobile {
     @media only screen and (max-width: 480px) {
         @content;
@@ -26,4 +28,24 @@
     @media only screen and (min-width: 1200px) {
         @content;
     }
+}
+
+@mixin hover {
+    @media only screen and (pointer) {
+        @content;
+    }
+}
+
+@mixin smartphone {
+    @media only screen and (pointer: none) {
+        @content;
+    }
+}
+
+$maxWidth: 1170;
+
+@mixin adaptive-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }

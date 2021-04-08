@@ -22,7 +22,7 @@ body {
 }
 
 input, button {
-    font-family: "Roboto", sans-serif!important;
+    font-family: "Roboto", "HelveticaCyr", sans-serif!important;
 }
 
 @import url("./fonts/HelveticaNeue/stylesheet.css");

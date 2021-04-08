@@ -1,0 +1,93 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.upload-box {
+    padding: 10px;
+    transition: background-color .2s ease-in-out;
+    width: 100%;
+    form {
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+    }
+    &__input{
+        font-size: 20px;
+        label {
+            @extend %pointer;
+            text-align: center;
+            svg {
+                vertical-align: bottom;
+            }
+        }
+    }
+    &__uploading, &__error {
+        display: none;
+    }
+}
+
+.upload-box {
+    background-color: transparent;
+    color: $black-900;
+    &__drop, &__drop-here {
+        display: none;
+        z-index: 0;
+        pointer-events: none;
+        font-size: 18px;
+        opacity: .8;
+    }
+    &--disabled {
+        display: none;
+    }
+    &--open {
+        .upload-box__input {
+            display: none;
+        }
+        .upload-box__drop {
+            display: block;
+        }
+        form {
+            min-height: 200px;
+            min-width: 100%;
+            z-index: 3;
+            border: dashed 2px $green-200;
+        }
+    }
+    &--active {
+        background-color: rgb(126, 255, 133);
+        .upload-box__drop {
+            display: none;
+        }
+        .upload-box__drop-here {
+            display: block;
+        }
+    }
+}
+
+.input-label {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    &__icon {
+        svg {
+            height: 70px;
+            width: 70px;
+        }
+    }
+    &__text {
+        margin: 1.5rem auto;
+        @include adaptive-font(25, 19);
+    }
+}
+
+.only-on-pc {
+    display: inline;
+    @include smartphone() {
+        display: none;
+    }
+}
+
+
+

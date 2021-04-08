@@ -1,0 +1,34 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.add-post {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        margin: 1.5rem auto 2rem;
+    }
+}
+
+.button-yellow {
+    background-color: $primary-yellow;
+    border: 1px solid darken($primary-yellow, 15%);
+    border-radius: 2.1rem;
+    font-size: 2.1rem;
+    line-height: 4.2rem;
+    padding: 0 2.2rem;
+    @extend %pointer;
+    outline: none;
+    transition: background-color .2s ease;
+    &:hover {
+        background-color: darken($primary-yellow, 11%);
+    }
+    &:focus {
+        border: 1px solid darken($primary-yellow, 30%);
+    }
+    &:disabled {
+        background-color: lighten($primary-yellow, 20%);
+        color: lighten($black-900, 30%);
+        border: 1px solid darken($primary-yellow, 10%);
+        cursor: default;
+    }
+}

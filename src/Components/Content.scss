@@ -3,7 +3,7 @@
 .content-header {
     padding: 5rem 0 2rem 0;
     &__title h1 {
-        font-size: 4rem;
+        @include adaptive-font (40, 25);
         font-family: "HelveticaCyr", sans-serif;
         font-weight: 100;
         margin: 0;
@@ -15,4 +15,11 @@
             flex-direction: row;
         }
     }
+}
+
+.content-center {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

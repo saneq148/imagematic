@@ -49,6 +49,8 @@ function Categories() {
     const dispatch = useDispatch();
     const loadCategories = () => dispatch(fetchCategories(quantity, order, orderBy, query));
 
+
+
     const items = useSelector(getCategories);
     const error = useSelector(getCategoriesError);
     const currentPage = useSelector(getCategoriesCurrentPage);
@@ -114,12 +116,12 @@ function Categories() {
     };
     const handleEditModalClose = () => {
         setEditModalOpen(false);
-        setAddNewItemTitle(null);
+        setAddNewItemTitle("");
     };
 
     const handleAddNewItemClose = () => {
         setaddNewItemModalOpen(false);
-        setAddNewItemTitle(null);
+        setAddNewItemTitle("");
     };
 
     const setCurrentPageHandler = (event, value) => {
@@ -194,6 +196,9 @@ function Categories() {
     const [itemsToDelete, setItemsToDelete] = useState([]);
     const [itemsToDeleteModalOpen, setItemsToDeleteModalOpen] = useState(false);
 
+    console.log(itemsToDelete);
+    const itemsToDeleteUnique = itemsToDelete.filter(n => n);
+
     const handleItemsToDeleteModalClose = () => {
         setItemsToDeleteModalOpen(false);
     };
@@ -222,7 +227,7 @@ function Categories() {
             <Helmet>
                 <title>{SITE_NAME} - Категорії</title>
             </Helmet>
-            <Snackbar open={successMessageOpened} autoHideDuration={600000000} onClose={closeSuccessMessage}>
+            <Snackbar open={successMessageOpened} autoHideDuration={2000} onClose={closeSuccessMessage}>
                 <Alert severity="success" onClose={closeSuccessMessage}>
                     <div className="alert-text">
                         <AlertTitle>ОК</AlertTitle>
@@ -315,7 +320,7 @@ function Categories() {
                                 </form>
                             </div>
                         </header>
-                        {itemsToDelete.filter(n => n).length > 0 && <div className="remove-selected">
+                        {itemsToDeleteUnique.length > 0 && <div className="remove-selected">
                             <Button icon="remove" content="Видалити вибрані категорії" size="massive" type="button" color="red" onClick={handleItemsToDeleteModalOpen}></Button>
                             <Modal
                                 aria-labelledby="transition-modal-title"

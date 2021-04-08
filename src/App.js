@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
-import { Auth, Categories, Profile, Home } from "./Pages";
+import { Auth, Categories, MyProfile, Home, AddPost } from "./Pages";
 import { Login, Register, Preloader } from "./Components";
 import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
@@ -35,8 +35,11 @@ function App() {
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>
+                        <Route path="/add" exact>
+                            <AddPost />
+                        </Route>
                         <Route path="/profile" exact>
-                            <Profile />
+                            <MyProfile />
                         </Route>
                         <Route path="/">
                             <div>

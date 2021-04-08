@@ -49,7 +49,7 @@ export const fetchCategories = (q, loading, setCategories) => {
     };
 };
 
-export const publishPost = () => {
+export const publishPost = (setUploadingProgress) => {
     return (dispatch, getState) => {
         const title = getState().AddPost.title;
         const category = getState().AddPost.category;
@@ -68,16 +68,29 @@ export const publishPost = () => {
         formData.append("image", image);
         formData.append("token", localStorage.getItem("token"));
 
-        axios.post(`${HOST}/api/posts`, formData)
+        axios.post(`${HOST}/api/posts`, formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+                onUploadProgress: data => {
+                    //Set the progress value to show the progress bar
+                    setUploadingProgress(Math.round((100 * data.loaded) / data.total));
+                }
+            })
             .then((res) => {
                 dispatch(push(`/post/${res.data.model.id}`));
                 dispatch(resetImage());
                 dispatch(setTitle(""));
                 dispatch(setDescription(""));
                 dispatch(setCategory(""));
+                dispatch(setFormErrors(null));
             })
             .catch((err) => {
                 console.log(err.request);
+            })
+            .finally(() => {
+                setUploadingProgress(null);
             });
     };
 };

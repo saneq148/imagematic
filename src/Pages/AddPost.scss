@@ -7,6 +7,47 @@
         justify-content: space-between;
         margin: 1.5rem auto 2rem;
     }
+    &__loading {
+        height: 2px;
+        width: 100%;
+        margin-top: 1px;
+        background-color: white;
+        & > div {
+            height: 2px;
+            background-color: $primary;
+            width: 50%;
+            transition: width .3s ease;
+        }
+    }
+}
+
+.reset-button {
+    font-size: 2.1rem;
+    line-height: 4.2rem;
+    padding: 0;
+    border: 1px solid $grey-100;
+    border-radius: 2.1rem;
+    padding: 0 2rem;
+    background-color: darken($grey-50, 2%);
+    transition: background-color .1s ease;
+    @extend %pointer;
+    outline: none;
+    @include mobile() {
+        line-height: 3.3rem;
+        font-size: 1.4rem;
+        padding: 0 1rem;
+    }
+    svg {
+        margin-right: 1rem;
+        vertical-align: baseline;
+        @include mobile() {
+            vertical-align: text-top;
+        }
+    }
+    &:hover, &:focus {
+        background-color: darken($grey-50, 8%);
+        border: 1px solid $grey-200;
+    }
 }
 
 .button-yellow {
@@ -19,6 +60,13 @@
     @extend %pointer;
     outline: none;
     transition: background-color .2s ease;
+    position: relative;
+    color: $black-900;
+    @include mobile() {
+        line-height: 3.3rem;
+        font-size: 1.4rem;
+        padding: 0 1.5rem;
+    }
     &:hover {
         background-color: darken($primary-yellow, 11%);
     }
@@ -32,3 +80,31 @@
         cursor: default;
     }
 }
+
+.button-progress {
+    height: 100%;
+    width: 100%;
+    background-color: lighten($primary-yellow, 20%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 33px;
+    overflow: hidden;
+    &__loading {
+        top: 0;
+        left: 0;
+        background-color: $primary-yellow;
+        height: 100%;
+        width: 100%;
+        transition: width .2s ease;
+        position: absolute;
+        z-index: 4;
+    }
+    &__text {
+        position: absolute;
+        width: 100%;
+        z-index: 5;
+        color: $black-900;
+    }
+}
+

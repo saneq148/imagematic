@@ -5,6 +5,12 @@ import { AddPhotoAlternate, SaveAlt, PhotoLibrary } from "@material-ui/icons";
 import "./ImageSelect.scss";
 import { setImage } from "src/state/addPost/actions";
 import PropTypes from "prop-types";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 function ImageSelect(props) {
 
@@ -16,6 +22,11 @@ function ImageSelect(props) {
 
     const [dragAndDropStarted, setDragAndDropStarted] = useState(false);
     const [dragAndDropOnInput, setDragAndDropOnInput] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(null);
+
+    const handleErrorClose = () => {
+        setErrorMessage(false);
+    };
 
     const checkFileIsImage = (file) => {
         if (!file || !file.name) {
@@ -29,7 +40,7 @@ function ImageSelect(props) {
             return;
         }
         else {
-            alert(`Хибний тип файлу: ${file.name}`);
+            setErrorMessage(`Хибний тип файлу: ${file.name}`);
         }
     };
 
@@ -96,6 +107,11 @@ function ImageSelect(props) {
                 { "upload-box--active": dragAndDropOnInput },
                 { "upload-box--disabled": false/*isFilePicked*/ }
             )}>
+            <Snackbar open={errorMessage} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={3000} onClose={handleErrorClose}>
+                <Alert onClose={handleErrorClose} severity="error">
+                    <div className="alert-text">{errorMessage}</div>
+                </Alert>
+            </Snackbar>
             <form
                 onDrop={e => handleDrop(e)}
                 onDragOver={e => handleDragOver(e)}
@@ -103,7 +119,7 @@ function ImageSelect(props) {
                 onDragLeave={e => handleDragLeave(e)}
             >
                 <div className="upload-box__input">
-                    <input className="box__file" ref={input_file} type="file" name="file" onChange={(e) => { checkFileIsImage(e.target.files[0]); }/*changeFileHandler*/} id="file" hidden />
+                    <input className="box__file" ref={input_file} type="file" name="file" onChange={(e) => { checkFileIsImage(e.target.files[0]); }} accept=".png, .jpg, .jpeg" id="file" hidden />
                     {!dragAndDropStarted &&
                         <label htmlFor="file">
                             <div className="input-label">

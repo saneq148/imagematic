@@ -10,12 +10,6 @@ function ImageSelected() {
 
     return (
         <div className="image-selected">
-            <div className="image-selected__edit">
-                <EditIcon />
-            </div>
-            <div className="image-selected__close">
-                <CloseIcon />
-            </div>
             <div className="image-selected__shield"></div>
             <img src={URL.createObjectURL(image)} alt="" />
             <div className="image-selected__title">

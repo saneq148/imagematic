@@ -1,13 +1,12 @@
 import React, { useState } from "react";
-import { Header } from "../Components";
+import { Header } from "src/Components/Header";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
-import "src/Components/Content.scss";
-import { ImageSelect, ImageSelected, AddPostForm } from "src/Components";
+import "src/scss/Content.scss";
+import { ImageSelect, ImageSelected, AddPostForm } from "src/Components/AddPost";
 import { useSelector, useDispatch } from "react-redux";
 import { getImage, getFormErrors } from "src/state/addPost/selectors";
 import { publishPost, resetImage } from "src/state/addPost/actions";
-import "src/Components/ImageSelected.scss";
 import "./AddPost.scss";
 import "semantic-ui-css/components/icon.min.css";
 import "semantic-ui-css/components/button.min.css";

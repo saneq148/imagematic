@@ -1,10 +1,11 @@
 import React from "react";
-import { Header } from "../Components";
-import Posts from "../Components/Posts";
-import { getUserLoggedIn } from "../state/user/selectors";
+import { Header } from "src/Components/Header";
+import { Posts } from "src/Components/Home";
+import { getUserLoggedIn } from "src/state/user/selectors";
 import { useSelector } from "react-redux";
-import { Auth } from "../Pages";
-import { Login } from "../Components";
+import { Auth, Login } from "src/Components/Auth";
+import { Helmet } from "react-helmet";
+import { SITE_NAME } from "src/config";
 
 function Home() {
 
@@ -20,6 +21,9 @@ function Home() {
 
     return (
         <>
+            <Helmet>
+                <title>{SITE_NAME} - Головна</title>
+            </Helmet>
             <Header />
             <main className="main-content">
                 <div className="container">

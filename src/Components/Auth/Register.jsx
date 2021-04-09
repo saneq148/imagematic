@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Schema from "./registerValidationSchema";
 import { ThreeDots } from "svg-loaders-react";
 import { useDispatch } from "react-redux";
-import { fetchUserRegister } from "../state/user/actions";
+import { fetchUserRegister } from "src/state/user/actions";
 
 function Register() {
 
@@ -69,8 +69,8 @@ function Register() {
                             {Object.keys(errors)[0] === "login" && touched.login && errors.login ? (
                                 <div className="auth__error-message">{errors.login}</div>
                             ) : (
-                                    ""
-                                )}
+                                ""
+                            )}
                         </div>
                         <div
                             className={classnames(
@@ -104,8 +104,8 @@ function Register() {
                             {Object.keys(errors)[0] === "password" && touched.password && errors.password ? (
                                 <div className="auth__error-message">{errors.password}</div>
                             ) : (
-                                    ""
-                                )}
+                                ""
+                            )}
                         </div>
                         <div
                             className={classnames(
@@ -137,10 +137,10 @@ function Register() {
                             {Object.keys(errors)[0] === "passwordConfirm" &&
                                 touched.passwordConfirm &&
                                 errors.passwordConfirm ? (
-                                    <div className="auth__error-message">{errors.passwordConfirm}</div>
-                                ) : (
-                                    ""
-                                )}
+                                <div className="auth__error-message">{errors.passwordConfirm}</div>
+                            ) : (
+                                ""
+                            )}
                         </div>
                         <div
                             className={classnames(
@@ -170,8 +170,8 @@ function Register() {
                             {Object.keys(errors)[0] === "firstName" && touched.firstName && errors.firstName ? (
                                 <div className="auth__error-message">{errors.firstName}</div>
                             ) : (
-                                    ""
-                                )}
+                                ""
+                            )}
                         </div>
                         <div
                             className={classnames(
@@ -201,8 +201,8 @@ function Register() {
                             {Object.keys(errors)[0] === "lastName" && touched.lastName && errors.lastName ? (
                                 <div className="auth__error-message">{errors.lastName}</div>
                             ) : (
-                                    ""
-                                )}
+                                ""
+                            )}
                         </div>
                         <div
                             className={classnames(
@@ -232,8 +232,8 @@ function Register() {
                             {Object.keys(errors)[0] === "phone" && touched.phone && errors.phone ? (
                                 <div className="auth__error-message">{errors.phone}</div>
                             ) : (
-                                    ""
-                                )}
+                                ""
+                            )}
                         </div>
                         <div className="auth__submit">
                             <button type="submit" disabled={isSubmitting}>

@@ -1,8 +1,12 @@
 import React, { Suspense } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
-import { Auth, Categories, MyProfile, Home, AddPost } from "./Pages";
-import { Login, Register, Preloader } from "./Components";
+import { Auth, Login, Register } from "src/Components/Auth";
+import { Home } from "src/Components/Home";
+import { AddPost } from "src/Components/AddPost";
+import { MyProfile } from "src/Components/MyProfile";
+import { Categories } from "src/Components/Categories";
+import { Preloader } from "src/Components/Preloader";
 import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";

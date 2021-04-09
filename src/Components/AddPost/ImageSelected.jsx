@@ -1,8 +1,7 @@
 import React from "react";
-import EditIcon from "@material-ui/icons/Edit";
-import CloseIcon from "@material-ui/icons/Close";
 import { useSelector, useDispatch } from "react-redux";
 import { getImage } from "src/state/addPost/selectors";
+import "./ImageSelected.scss";
 
 function ImageSelected() {
 

@@ -98,6 +98,7 @@ export const deleteCategory = (id, reloadCategories, closeModalWindow, successMe
                 dispatch(deleteCategoryLocaly(id));
                 closeModalWindow();
                 successMessage("Категорію видалено");
+                reloadCategories();
                 resetDeleteItems([]);
             })
             .catch((e) => {

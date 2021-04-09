@@ -24,6 +24,6 @@ yarn-error.log*
 
 package-lock.json
 
-src/config.js
+/src/config.js
 
 .vscode

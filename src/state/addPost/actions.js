@@ -24,7 +24,7 @@ export const fetchCategories = (q, loading, setCategories) => {
         axios.get(`${HOST}/api/categories`, {
             params: {
                 page: 1,
-                limit: 10,
+                limit: 12,
                 orderBy: "title",
                 order: "asc",
                 q,
@@ -35,13 +35,13 @@ export const fetchCategories = (q, loading, setCategories) => {
                 setCategories(res.data.data);
             })
             .catch(err => {
-                if (err.response) {
+                /*if (err.response) {
 
                 } else if (err.request) {
 
                 } else {
 
-                }
+                }*/
             })
             .finally(() => {
                 loading(false);

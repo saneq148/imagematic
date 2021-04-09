@@ -3,6 +3,7 @@ import Categories from "./categories/reducer";
 import User from "./user/reducer";
 import Profile from "./profile/reducer";
 import AddPost from "./addPost/reducer";
+import Posts from "./Posts/reducer";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
@@ -11,13 +12,13 @@ import { createBrowserHistory } from "history";
 import { connectRouter } from "connected-react-router";
 
 
-
 const rootReducer = (history) => combineReducers({
     router: connectRouter(history),
     Categories,
     User,
     Profile,
-    AddPost
+    AddPost,
+    Posts
 });
 
 const persistConfig = {

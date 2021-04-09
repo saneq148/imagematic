@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { Header } from "../Components";
+import { Header } from "src/Components/Header";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
-import "src/Components/Content.scss";
+import "src/scss/Content.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "src/state/profile/actions";
 import { getProfileInfo } from "src/state/profile/selectors";

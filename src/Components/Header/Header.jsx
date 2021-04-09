@@ -1,8 +1,8 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import "./Header.scss";
+import "src/Components/Header/Header.scss";
 import { ReactComponent as Logo } from "src/logo.svg";
-import Account from "./Account";
+import { Account } from "src/Components/Account/";
 
 function Header() {
     return (

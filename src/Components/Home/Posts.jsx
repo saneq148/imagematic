@@ -13,21 +13,6 @@ import usePostsload from "src/Components/Home/usePostsLoad";
 
 function Posts() {
 
-
-    /*const dispatch = useDispatch();
-
-    const posts = useSelector(getPosts);
-    const loading = useSelector(getFetching);
-    const error = useSelector(getError);
-
-    const load = () => {
-        dispatch(fetchPosts());
-    };
-
-    useEffect(() => {
-        load();
-    }, []);*/
-
     const [pageNumber, setPageNumber] = useState(1);
 
     const {
@@ -51,7 +36,9 @@ function Posts() {
 
     const reload = () => {
         setPageNumber(0);
-        setPageNumber(1);
+        setTimeout(() => {
+            setPageNumber(1);
+        }, 0);
     };
 
     return (

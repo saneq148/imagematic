@@ -18,6 +18,11 @@
         margin: 3rem auto;
         font-family: inherit;
     }
+    &__error {
+        font-size: 1.5rem;
+        color: $red-200;
+        text-align: center;
+    }
     &__form {
         display: flex;
         flex-direction: column;

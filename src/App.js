@@ -6,6 +6,7 @@ import { Home } from "src/Components/Home";
 import { AddPost } from "src/Components/AddPost";
 import { MyProfile } from "src/Components/MyProfile";
 import { Categories } from "src/Components/Categories";
+import { PostPage } from "src/Components/PostPage";
 import { Preloader } from "src/Components/Preloader";
 import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
@@ -36,6 +37,7 @@ function App() {
                             </Auth>
                         </Route>
                         {!isAuthenticated && <Redirect to="/" />}
+                        <Route path="/post/:id" component={PostPage} />
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>

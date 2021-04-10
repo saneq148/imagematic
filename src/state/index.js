@@ -4,6 +4,7 @@ import User from "./user/reducer";
 import Profile from "./profile/reducer";
 import AddPost from "./addPost/reducer";
 import Posts from "./Posts/reducer";
+import Post from "./post/reducer";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
@@ -18,7 +19,8 @@ const rootReducer = (history) => combineReducers({
     User,
     Profile,
     AddPost,
-    Posts
+    Posts,
+    Post
 });
 
 const persistConfig = {

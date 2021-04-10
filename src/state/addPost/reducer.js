@@ -48,6 +48,10 @@ const AddPost = (state = initialState, action) => {
                 ...state,
                 image: null
             };
+        case types.RESET_FORM:
+            return {
+                ...initialState
+            };
         default:
             return {
                 ...state,

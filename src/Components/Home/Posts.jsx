@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "src/state/Posts/actions";
 import { getPosts, getFetching, getError } from "src/state/Posts/selectors";
-import { Post } from "src/Components/Post";
+import { PostPreview } from "src/Components/Post";
 import "src/Components/Home/Posts.scss";
 import "src/scss/Content.scss";
 import { Loader } from "semantic-ui-react";
@@ -56,14 +56,14 @@ function Posts() {
                                 if (posts.length === index + 1) {
                                     return (
                                         <div className="post-wrapper" ref={lastPostElement}>
-                                            <Post key={`${post.id}${post.title}`} post={post} />
+                                            <PostPreview key={`${post.id}${post.title}`} post={post} />
                                         </div>
                                     );
                                 }
                                 else {
                                     return (
                                         <div className="post-wrapper">
-                                            <Post key={`${post.id}${post.title}`} post={post} />
+                                            <PostPreview key={`${post.id}${post.title}`} post={post} />
                                         </div>
                                     );
                                 }

@@ -1,7 +1,7 @@
 import React from "react";
 import { HOST } from "src/config";
 import PropTypes from "prop-types";
-import s from "./Post.module.scss";
+import s from "./PostPreview.module.scss";
 import { Link } from "react-router-dom";
 import { Category } from "@material-ui/icons";
 

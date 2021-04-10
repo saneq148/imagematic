@@ -12,6 +12,7 @@ export const fetchPost = (id) => {
             }
         })
             .then((res) => {
+                console.log(res);
                 if (res.data.model.category) {
                     dispatch(setPost(res.data.model));
                 }
@@ -23,18 +24,39 @@ export const fetchPost = (id) => {
                         }
                     }));
                 }
-
+                dispatch(fetchAuthor(res.data.model.created_by));
             })
             .catch((err) => {
                 if (!err.response) {
                     dispatch(setError({ title: "На жаль, ця сторінка недоступна.", message: "Посилання, за яким ви перейшли більше недоступне" }));
                 }
+            });
+    };
+};
+
+const fetchAuthor = (id) => {
+    return (dispatch) => {
+        axios.get(`${HOST}/api/users/${id}`, {
+            params: {
+                token: localStorage.getItem("token")
+            }
+        })
+            .then((res) => {
+                dispatch(setAuthor(res.data.model));
             })
-            .finally(() => {
+            .catch(() => {
+                dispatch(setAuthor({ username: "Not Found", first_name: "Not Found", last_name: "Not Found" }));
+            })
+            .then(() => {
                 dispatch(setLoading(false));
             });
     };
 };
+
+const setAuthor = (payload) => ({
+    type: types.SET_AUTHOR,
+    payload
+});
 
 
 export const deletePost = (id, loading, error) => {
@@ -46,11 +68,10 @@ export const deletePost = (id, loading, error) => {
                 token: localStorage.getItem("token")
             }
         })
-            .then((res) => {
+            .then(() => {
                 dispatch(push("/"));
             })
             .catch((err) => {
-                console.log(err);
                 if (err.response) {
                     error(err.response.data.error.message);
                 }

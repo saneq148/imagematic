@@ -11,7 +11,10 @@ const initialState = {
     updated_at: null,
     categoryTitle: null,
     categoryId: null,
-    authorId: null
+    authorId: null,
+    author: null,
+    authorName: null,
+    authorSurname: null
 };
 
 export default function Post(state = initialState, action) {
@@ -30,7 +33,8 @@ export default function Post(state = initialState, action) {
                 created_at: payload.created_at,
                 updated_at: payload.updated_at,
                 categoryTitle: payload.category.title,
-                categoryId: payload.category.id
+                categoryId: payload.category.id,
+                authorId: payload.created_by
             };
         case types.SET_LOADING:
             return {
@@ -41,6 +45,13 @@ export default function Post(state = initialState, action) {
             return {
                 ...state,
                 error: payload
+            };
+        case types.SET_AUTHOR:
+            return {
+                ...state,
+                author: payload.username,
+                authorName: payload.first_name,
+                authorSurname: payload.last_name
             };
         default:
             return state;

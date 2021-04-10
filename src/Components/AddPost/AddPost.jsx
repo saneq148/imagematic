@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Header } from "src/Components/Header";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
@@ -6,7 +6,7 @@ import "src/scss/Content.scss";
 import { ImageSelect, ImageSelected, AddPostForm } from "src/Components/AddPost";
 import { useSelector, useDispatch } from "react-redux";
 import { getImage, getFormErrors } from "src/state/addPost/selectors";
-import { publishPost, resetImage } from "src/state/addPost/actions";
+import { publishPost, resetImage, resetForm } from "src/state/addPost/actions";
 import "./AddPost.scss";
 import "semantic-ui-css/components/icon.min.css";
 import "semantic-ui-css/components/button.min.css";
@@ -23,6 +23,12 @@ function AddPost() {
     const handlePublish = () => {
         dispatch(publishPost(setUploadingProgress));
     };
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetForm());
+        };
+    }, []);
 
     const isReadyToPublish = useSelector(getFormErrors);
 

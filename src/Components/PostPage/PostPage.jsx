@@ -19,6 +19,7 @@ import Fade from "@material-ui/core/Fade";
 import { ThreeDots } from "svg-loaders-react";
 import { Link } from "react-router-dom";
 import classnames from "classnames";
+import moment from "moment";
 
 function PostPage(props) {
 
@@ -95,7 +96,7 @@ function PostPage(props) {
     return (
         <>
             <Helmet>
-                <title>{SITE_NAME} - Пост</title>
+                <title>{SITE_NAME} - {post.title ? post.title : "Завантаження"}</title>
             </Helmet>
             <Header />
             <main className="main-content">
@@ -104,64 +105,69 @@ function PostPage(props) {
                         <div className="content">
                             <div className={s["post-wrapper"]}>
                                 {!post.error && <article className={s.post}>
-                                    <div className={s["post__info"]}>
-                                        <header className={s["post__header"]}>
-                                            <h1 className={s["post__title"]}>{loaded && post.title}</h1>
-                                            <address rel="author" className={s["post__author"]} >{loaded && post.title}</address>
-                                            <div className="post__more">
-                                                <div className={classnames(
-                                                    "edit",
-                                                    { "edit--open": visibleMore }
-                                                )} ref={moreRef}>
-                                                    <div className="edit__button" onClick={handleToggleMore}>
-                                                        <MoreVertIcon />
-                                                    </div>
-                                                    <div className="edit__menu">
-                                                        <ul>
-                                                            <li>
-                                                                <span onClick={handleOpenDeleteModal}>Видалити</span>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <Modal
-                                                        aria-labelledby="transition-modal-title"
-                                                        aria-describedby="transition-modal-description"
-                                                        className={classes.modal}
-                                                        open={deleteModalOpen}
-                                                        onClose={handleCloseDeleteModal}
-                                                        closeAfterTransition
-                                                        BackdropComponent={Backdrop}
-                                                        BackdropProps={{
-                                                            timeout: 500,
-                                                        }}
-                                                    >
-                                                        <Fade in={deleteModalOpen}>
-                                                            <div className="modal">
-                                                                <h1 className="modal__title">Видалити пост</h1>
-                                                                <form className="modal__form" onSubmit={(e) => { handleDelete(); e.preventDefault(); }}>
-                                                                    {deleteModalError && <div className="modal__error">Помилка: {deleteModalError}</div>}
-                                                                    <div className="modal__message">Ви впевнені, що хочете видалити <b>{post.title}</b>?</div>
-                                                                    <div className="modal__buttons modal__buttons--center">
-                                                                        <button className="modal__close" type="button" onClick={handleCloseDeleteModal}>Назад</button>
-                                                                        <button className="modal__submit" type="submit" disabled={fetchingDeleting}>{fetchingDeleting ? <ThreeDots /> : "ОK"}</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </Fade>
-                                                    </Modal>
+                                    <header className={s["post__header"]}>
+                                        <h1 className={s["post__title"]}>{loaded && post.title}</h1>
+                                        <div className="post__more">
+                                            <div className={classnames(
+                                                "edit",
+                                                { "edit--open": visibleMore }
+                                            )} ref={moreRef}>
+                                                <div className="edit__button" onClick={handleToggleMore}>
+                                                    <MoreVertIcon />
                                                 </div>
+                                                <div className="edit__menu">
+                                                    <ul>
+                                                        <li>
+                                                            <span onClick={handleOpenDeleteModal}>Видалити</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <Modal
+                                                    aria-labelledby="transition-modal-title"
+                                                    aria-describedby="transition-modal-description"
+                                                    className={classes.modal}
+                                                    open={deleteModalOpen}
+                                                    onClose={handleCloseDeleteModal}
+                                                    closeAfterTransition
+                                                    BackdropComponent={Backdrop}
+                                                    BackdropProps={{
+                                                        timeout: 500,
+                                                    }}
+                                                >
+                                                    <Fade in={deleteModalOpen}>
+                                                        <div className="modal">
+                                                            <h1 className="modal__title">Видалити пост</h1>
+                                                            <form className="modal__form" onSubmit={(e) => { handleDelete(); e.preventDefault(); }}>
+                                                                {deleteModalError && <div className="modal__error">Помилка: {deleteModalError}</div>}
+                                                                <div className="modal__message">Ви впевнені, що хочете видалити <b>{post.title}</b>?</div>
+                                                                <div className="modal__buttons modal__buttons--center">
+                                                                    <button className="modal__close" type="button" onClick={handleCloseDeleteModal}>Назад</button>
+                                                                    <button className="modal__submit" type="submit" disabled={fetchingDeleting}>{fetchingDeleting ? <ThreeDots /> : "ОK"}</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </Fade>
+                                                </Modal>
                                             </div>
-                                            {loaded && post.categoryTitle && <h2 className={s["post__category"]}>{loaded && post.categoryTitle}</h2>}
-                                        </header>
-                                        <div className={s["post__img"]}>
-                                            {!loading && (
-                                                <img src={`${HOST}/api/files/${id}`} />
-                                            )}
+                                        </div>
+                                    </header>
+                                    <div className={s["post__img"]}>
+                                        {!loading && (
+                                            <img src={`${HOST}/api/files/${id}`} />
+                                        )}
+                                    </div>
+                                    <div className={s["post__info"]}>
+                                        {loaded && post.categoryTitle && <h2 className={s["post__category"]}>{loaded && post.categoryTitle}</h2>}
+                                        <div className={s["post__signature"]}>
+                                            <Link rel="author" className={s["post__author"]} to={`/user/${post.authorId}`}>{`${post.authorName} ${post.authorSurname}`}</Link>
+                                            <time className={s["post__time"]}>{loaded && moment(post["created_at"], "YYYY-MM-DD hh:mm:ss").fromNow()}</time>
+                                            {post.created_at !== post.updated_at && <sup className={s["post__edited"]} title={`Edited ${moment(post["updated_at"], "YYYY-MM-DD hh:mm:ss").fromNow()}`}>Edited</sup>}
                                         </div>
                                         {loaded && post.description && <div className={s["post__description"]}><p>{post.description}</p></div>}
                                     </div>
                                 </article>}
                                 {post.error && <div className="not-found"><h1>{post.error.title}</h1><p>{post.error.message} <Link to="/">Повернутися на головну</Link></p></div>}
+                                {post.loading && <div></div>}
                             </div>
                         </div>
                     </section>

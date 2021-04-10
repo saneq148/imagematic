@@ -7,12 +7,14 @@
 }
 
 .post {
-    display: grid;
     max-width: 728px;
     margin: auto;
-    grid-template-columns: 1fr;
-    gap: 2rem;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid $grey-200;
+    box-shadow: 1px 1px 5px 1px $grey-100;
     &__img {
+        background-color: #fff;
         img {
             width: 100%;
             display: block;
@@ -20,7 +22,6 @@
     }
     &__header {
         background-color: #fff;
-        border: 1px solid $grey-200;
         padding: 1rem 2rem;
         display: grid;
         grid-template-columns: 1fr auto auto;
@@ -28,33 +29,45 @@
     &__title {
         font-weight: 400;
         margin: 0;
-        margin-bottom: 1rem;
         font-size: 2.5rem;
     }
+    &__signature {
+        
+    }
     &__author {
-        margin-bottom: .5rem;
         font-style: normal;
         font-size: 1.5rem;
         position: relative;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        &::before {
+        text-decoration: none;
+        color: $black-900;
+        &::after {
             content: "\25CF";
             display: inline;
             margin-right: .5rem;
+            margin-left: .5rem;
         }
+    }
+    &__time {
+        font-size: 1.5rem;
+    }
+    &__edited {
+        font-size: 1rem;
+        padding: 0 .5rem;
+        color: $grey-300;
     }
     &__category {
         font-weight: 400;
         color: $primary;
         margin: 0;
         font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+    &__info {
+        background-color: #fff;
+        padding: 1.5rem 2rem;
     }
     &__description {
-        background-color: #fff;
-        border: 1px solid $grey-200;
-        padding: 2rem 2rem;
+        margin-top: 1rem;
         font-size: 1.7rem;
         p {
             margin: 0;

@@ -80,11 +80,6 @@ export const publishPost = (setUploadingProgress) => {
             })
             .then((res) => {
                 dispatch(push(`/post/${res.data.model.id}`));
-                dispatch(resetImage());
-                dispatch(setTitle(""));
-                dispatch(setDescription(""));
-                dispatch(setCategory(""));
-                dispatch(setFormErrors(null));
             })
             .catch((err) => {
                 console.log(err.request);
@@ -102,6 +97,10 @@ export const setCategory = (payload) => ({
 
 export const resetImage = () => ({
     type: types.RESET_IMAGE
+});
+
+export const resetForm = () => ({
+    type: types.RESET_FORM
 });
 
 export const setFormErrors = (payload) => ({

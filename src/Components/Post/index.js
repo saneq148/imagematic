@@ -1,1 +1,1 @@
-export { default as Post } from "src/Components/Post/Post";
+export { default as PostPreview } from "src/Components/Post/PostPreview";

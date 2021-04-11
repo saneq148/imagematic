@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { HOST } from "src/config";
+import { useState, useEffect} from "react";
 import axios from "axios";
+import { HOST } from "src/config";
 
-function usePostsLoad(pageNumber) {
+function useSearchLoad(pageNumber, query) {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -21,7 +21,7 @@ function usePostsLoad(pageNumber) {
                 limit: 12,
                 orderBy: "id",
                 order: "desc",
-                q: "",
+                q: query,
                 token: localStorage.getItem("token")
             },
             cancelToken: new axios.CancelToken((c) => cancel = c)
@@ -44,4 +44,4 @@ function usePostsLoad(pageNumber) {
     return { loading, error, posts, hasMore };
 }
 
-export default usePostsLoad;
+export default useSearchLoad;

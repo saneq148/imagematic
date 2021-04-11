@@ -1,7 +1,5 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useRef, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "src/state/Posts/actions";
-import { getPosts, getFetching, getError } from "src/state/Posts/selectors";
 import { PostPreview } from "src/Components/Post";
 import "src/Components/Home/Posts.scss";
 import "src/scss/Content.scss";
@@ -9,18 +7,20 @@ import { Loader } from "semantic-ui-react";
 import "semantic-ui-css/components/loader.css";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
-import usePostsload from "src/Components/Home/usePostsLoad";
+import { getPosts, getFetching, getError, getHasMore, getPageNumber } from "src/state/Posts/selectors";
+import { resetPosts, setPageNumber, fetchPosts } from "src/state/Posts/actions";
+import { Link } from "react-router-dom";
+import "src/scss/NotFound.scss";
 
 function Posts() {
 
-    const [pageNumber, setPageNumber] = useState(1);
+    const dispatch = useDispatch();
 
-    const {
-        posts,
-        hasMore,
-        loading,
-        error
-    } = usePostsload(pageNumber);
+    const loading = useSelector(getFetching);
+    const posts = useSelector(getPosts);
+    const error = useSelector(getError);
+    const hasMore = useSelector(getHasMore);
+    const pageNumber = useSelector(getPageNumber);
 
     const observer = useRef();
     const lastPostElement = useCallback(node => {
@@ -28,18 +28,25 @@ function Posts() {
         if (observer.current) observer.current.disconnect();
         observer.current = new IntersectionObserver((entries) => {
             if (entries[0].isIntersecting && hasMore) {
-                setPageNumber((prev) => prev + 1);
+                dispatch(setPageNumber(pageNumber + 1));
             }
         });
         if (node) observer.current.observe(node);
     }, [loading, hasMore]);
 
-    const reload = () => {
-        setPageNumber(0);
-        setTimeout(() => {
-            setPageNumber(1);
-        }, 0);
+    const loadPosts = () => {
+        dispatch(fetchPosts(pageNumber));
     };
+
+    useEffect(() => {
+        loadPosts();
+    }, [pageNumber]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetPosts());
+        };
+    }, []);
 
     return (
         <section className="posts-page">
@@ -78,12 +85,21 @@ function Posts() {
                         <div className="posts-error">
                             <Alert severity="error"
                                 action={
-                                    <Button color="inherit" size="big" onClick={reload}>
+                                    <Button color="inherit" size="big" onClick={loadPosts}>
                                         Спробувати ще раз
-                                </Button>
+                                    </Button>
                                 }>
                                 <div className="error-message">Не вдалося завантажити</div>
                             </Alert>
+                        </div>
+                    }
+                    { 
+                        !error && !loading && posts.length === 0 && 
+                        <div className="not-found">
+                            <h1>Постів поки немає</h1>
+                            <p>
+                                Будьте першим: <Link to="/add">створити пост</Link>
+                            </p>
                         </div>
                     }
                 </div>

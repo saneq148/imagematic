@@ -12,6 +12,7 @@ import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
 import { history } from "src/state";
+import { SearchPage } from "./Components/Search";
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
                         </Route>
                         {!isAuthenticated && <Redirect to="/" />}
                         <Route path="/post/:id" component={PostPage} />
+                        <Route path="/search/:query" component={SearchPage} />
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>

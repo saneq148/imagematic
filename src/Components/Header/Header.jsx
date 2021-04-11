@@ -19,7 +19,7 @@ function Header() {
                         <ul>
                             <li><NavLink to="/" exact activeClassName="active">Головна</NavLink></li>
                             <li><NavLink to="/categories" exact activeClassName="active">Категорії</NavLink></li>
-                            <li><NavLink to="/search" exact activeClassName="active">Пошук</NavLink></li>
+
                         </ul>
                     </nav>
                     <div className="page-header__user">

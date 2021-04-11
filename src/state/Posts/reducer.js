@@ -3,7 +3,9 @@ import * as types from "./types";
 const initialState = {
     posts: [],
     loading: false,
-    error: null
+    error: null,
+    hasMore: true,
+    pageNumber: 0,
 };
 
 const Posts = (state = initialState, action) => {
@@ -13,7 +15,7 @@ const Posts = (state = initialState, action) => {
         case types.SET_POSTS:
             return {
                 ...state,
-                posts: payload
+                posts: [...state.posts, ...payload]
             };
         case types.SET_FETCHING:
             return {
@@ -25,6 +27,18 @@ const Posts = (state = initialState, action) => {
                 ...state,
                 error: payload
             };
+        case types.SET_HAS_MORE:
+            return {
+                ...state,
+                hasMore: payload
+            };
+        case types.SET_PAGE_NUMBER:
+            return {
+                ...state,
+                pageNumber: payload
+            };
+        case types.RESET_POSTS:
+            return initialState;
         default:
             return {
                 ...state

@@ -8,7 +8,7 @@ import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { handleLogout } from "src/state/user/actions";
-import { getUserId, getUserLogin, getUserName, getUserSurname } from "src/state/user/selectors";
+import { getUserLogin, getUserName, getUserSurname } from "src/state/user/selectors";
 import { Skeleton } from "@material-ui/lab";
 
 function Account() {
@@ -30,7 +30,6 @@ function Account() {
         dispatch(handleLogout());
     }
 
-    const userId = useSelector(getUserId);
     const userLogin = useSelector(getUserLogin);
     const userName = useSelector(getUserName);
     const userSurname = useSelector(getUserSurname);

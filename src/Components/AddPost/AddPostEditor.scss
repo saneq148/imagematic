@@ -7,14 +7,21 @@
     aspect-ratio: 1 / 1;
 }
 
-.crop-buttons {
-    margin-top: 1rem;
+.crop {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid $grey-100;
+    &__slider {
+        padding: 0 .5rem;
+        background-color: #fff;
+        border-bottom: 1px solid $grey-100;
+    }
+}
+
+.crop__buttons {
     width: 100%;
     display: flex;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
     overflow: hidden;
-    border: 1px solid $grey-300;
     border-bottom: none;
     button {
         //border: 1px solid $grey-300;

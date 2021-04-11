@@ -16,7 +16,7 @@ import { deletePost } from "src/state/post/actions";
 
 function Post(props) {
 
-
+    const id = props.id;
 
     const moreRef = React.useRef();
     const dispatch = useDispatch();
@@ -116,7 +116,7 @@ function Post(props) {
                     </div>
                 </header>
                 <div className={s["post__img"]}>
-                    <img src={`${HOST}/api/files/${post.imageId}`} alt={`Зображення ${post.title}`} />
+                    <img src={`${HOST}/api/files/${id}`} alt={`Зображення ${post.title}`} />
                 </div>
                 <div className={s["post__info"]}>
                     {post.categoryTitle && <h2 className={s["post__category"]}>{post.categoryTitle}</h2>}
@@ -133,7 +133,8 @@ function Post(props) {
 }
 
 Post.propTypes = {
-    item: PropTypes.object
+    item: PropTypes.object,
+    id: PropTypes.string
 };
 
 

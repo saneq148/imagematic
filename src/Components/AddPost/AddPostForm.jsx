@@ -1,26 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getImage, getCategories, getTitle, getDescription, getCategory } from "src/state/addPost/selectors";
-import { fetchCategories, setCategory, setTitle, setDescription, setFormErrors } from "src/state/addPost/actions";
+import { getImage, getTitle, getDescription, getCategory } from "src/state/addPost/selectors";
+import { fetchCategories, setCategory, setTitle, setDescription, setFormErrors, publishPost } from "src/state/addPost/actions";
 import "./AddPostForm.scss";
 import { Form, Input, Label } from "semantic-ui-react";
 import "semantic-ui-css/components/form.min.css";
 import "semantic-ui-css/components/input.min.css";
 import "semantic-ui-css/components/dropdown.min.css";
 import "semantic-ui-css/components/menu.min.css";
-import "semantic-ui-css/components/flag.min.css";
-import "semantic-ui-css/components/item.min.css";
 import "semantic-ui-css/components/list.min.css";
-import "semantic-ui-css/components/search.min.css";
 import "semantic-ui-css/components/transition.min.css";
 import "semantic-ui-css/components/label.min.css";
 import { Formik } from "formik";
+import { getFormErrors } from "src/state/addPost/selectors";
+import PropTypes from "prop-types";
+import { resetForm } from "src/state/addPost/actions";
 
-function AddPostForm() {
+function AddPostForm(props) {
+
+
+    const setUploadingProgress = props.setUploadingProgress;
+    const uploadingProgress = props.uploadingProgress;
+    const goBack = props.gotoNextStep;
 
     const image = useSelector(getImage);
-    //let categories = [];
-    //categories = useSelector(getCategories);
     const title = useSelector(getTitle);
     const description = useSelector(getDescription);
     const category = useSelector(getCategory);
@@ -60,8 +63,40 @@ function AddPostForm() {
         dispatch(fetchCategories(categoriesSearchQuery, setCategoriesFetching, setCategories));
     }, []);
 
+    const isReadyToPublish = useSelector(getFormErrors);
+
+    const handlePublish = () => {
+        dispatch(publishPost(setUploadingProgress));
+    };
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetForm());
+        };
+    }, []);
+
 
     return (
+        <>
+        <div className="add-post__header">
+            <button className="reset-button" disabled={!image} onClick={() => goBack(3)}>Назад</button>
+            <button
+                className="button-next button-yellow"
+                disabled={isReadyToPublish !== false || uploadingProgress}
+                onClick={handlePublish}>
+                Опублікувати
+                {uploadingProgress &&
+                    <div className="button-progress">
+                        <div className="button-progress__text">
+                            Публікація...
+                </div>
+                        <div
+                            className="button-progress__loading"
+                            style={{ width: `${uploadingProgress}%` }}>
+                        </div>
+                    </div>}
+            </button>
+        </div>
         <div className="add-post-form">
             <div className="add-post-form__image">
                 <img src={URL.createObjectURL(image)} alt="" />
@@ -91,7 +126,6 @@ function AddPostForm() {
                     }}
                 >
                     {({
-                        values,
                         handleChange,
                         handleBlur,
                         touched,
@@ -140,7 +174,15 @@ function AddPostForm() {
                 </Formik>
             </div>
         </div>
+        </>
     );
 }
+
+AddPostForm.propTypes = {
+    setUploadingProgress: PropTypes.func,
+    uploadingProgress: PropTypes.number,
+    gotoNextStep: PropTypes.func
+};
+
 
 export default AddPostForm;

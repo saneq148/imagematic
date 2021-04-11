@@ -10,12 +10,16 @@ import DoneIcon from "@material-ui/icons/Done";
 import HistoryIcon from "@material-ui/icons/History";
 import { getCroppedImg } from "./utils";
 import { setImage, setImageBeenEdited } from "src/state/addPost/actions";
-import { getImage, getOriginalImage } from "src/state/addPost/selectors";
+import { getImage, getOriginalImage, getImageIsEdited } from "src/state/addPost/selectors";
 import { useDispatch, useSelector } from "react-redux";
+import Slider from "@material-ui/core/Slider";
 
 function AddPostEditor(props) {
 
     const selectedImage = props.image;
+    const gotoStep = props.gotoNextStep;
+
+    const imageEdited = useSelector(getImageIsEdited);
 
     const type = selectedImage.type;
 
@@ -47,6 +51,7 @@ function AddPostEditor(props) {
             return croppedImage;
         } 
         catch (e) {
+            // eslint-disable-next-line
             console.error(e);
         }
     };
@@ -97,32 +102,42 @@ function AddPostEditor(props) {
 
     return (
         <div className="container--one-line">
-            <div className="crop-buttons">
-                <button className="undo-button" onClick={undoChanges}><HistoryIcon /></button>
-                <button className={aspectRatio === 1 / 1 ? "active" : ""} onClick={() => setAspectRatio(1 / 1)}><CropDinIcon /></button>
-                <button className={aspectRatio === 3 / 4 ? "active" : ""} onClick={() => setAspectRatio(3 / 4)}><CropPortraitIcon /></button>
-                <button className={aspectRatio === 4 / 3 ? "active" : ""} onClick={() => setAspectRatio(4 / 3)}><CropLandscapeIcon /></button>
-                <button onClick={handleSave} className="save-button"><DoneIcon /></button>
+            <div className="add-post__header">
+                <button className="reset-button" onClick={() => gotoStep(2)}>Назад</button>
+                <button className="button-next button-yellow" disabled={!imageEdited} onClick={() => gotoStep(4)}>Далі</button>
             </div>
-            <div className="cropper">
-                <Cropper
-                    image={editImage}
-                    crop={crop}
-                    aspect={aspectRatio}
-                    zoom={zoom}
-                    rotation={rotation}
-                    onCropChange={setCrop}
-                    onRotationChange={setRotation}
-                    onCropComplete={onCropComplete}
-                    onZoomChange={setZoom}
-                />
+            <div className="crop">
+                <div className="crop__buttons">
+                    <button className="undo-button" onClick={undoChanges}><HistoryIcon /></button>
+                    <button className={aspectRatio === 1 / 1 ? "active" : ""} onClick={() => setAspectRatio(1 / 1)}><CropDinIcon /></button>
+                    <button className={aspectRatio === 3 / 4 ? "active" : ""} onClick={() => setAspectRatio(3 / 4)}><CropPortraitIcon /></button>
+                    <button className={aspectRatio === 4 / 3 ? "active" : ""} onClick={() => setAspectRatio(4 / 3)}><CropLandscapeIcon /></button>
+                    <button onClick={handleSave} className="save-button"><DoneIcon /></button>
+                </div>
+                <div className="crop__slider">
+                    <Slider value={rotation} onChange={(e, data) => setRotation(data)} valueLabelDisplay="auto" aria-labelledby="degree" min={-180} max={180}/>
+                </div>
+                <div className="cropper">
+                    <Cropper
+                        image={editImage}
+                        crop={crop}
+                        aspect={aspectRatio}
+                        zoom={zoom}
+                        rotation={rotation}
+                        onCropChange={setCrop}
+                        onRotationChange={setRotation}
+                        onCropComplete={onCropComplete}
+                        onZoomChange={setZoom}
+                    />
+                </div>
             </div>
         </div>
     );
 }
 
 AddPostEditor.propTypes = {
-    image: PropTypes.object
+    image: PropTypes.object,
+    gotoNextStep: PropTypes.func
 };
 
 

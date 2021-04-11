@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import classNames from "classnames";
 import { AddPhotoAlternate, SaveAlt, PhotoLibrary } from "@material-ui/icons";
 import "./ImageSelect.scss";
@@ -100,59 +100,61 @@ function ImageSelect(props) {
     }, []);
 
     return (
-        <div className={
-            classNames("upload-box",
-                { "upload-box--open": dragAndDropStarted },
-                { "upload-box--active": dragAndDropOnInput },
-                { "upload-box--disabled": false/*isFilePicked*/ }
-            )}>
-            <Snackbar open={errorMessage} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={3000} onClose={handleErrorClose}>
-                <Alert onClose={handleErrorClose} severity="error">
-                    <div className="alert-text">{errorMessage}</div>
-                </Alert>
-            </Snackbar>
-            <form
-                onDrop={e => handleDrop(e)}
-                onDragOver={e => handleDragOver(e)}
-                onDragEnter={e => handleDragEnter(e)}
-                onDragLeave={e => handleDragLeave(e)}
-            >
-                <div className="upload-box__input">
-                    <input className="box__file" ref={input_file} type="file" name="file" onChange={(e) => { checkFileIsImage(e.target.files[0]); }} accept=".png, .jpg, .jpeg" id="file" hidden />
-                    {!dragAndDropStarted &&
-                        <label htmlFor="file">
-                            <div className="input-label">
-                                <div className="input-label__icon">
-                                    <AddPhotoAlternate />
+        <div className="content-center">
+            <div className={
+                classNames("upload-box",
+                    { "upload-box--open": dragAndDropStarted },
+                    { "upload-box--active": dragAndDropOnInput },
+                    { "upload-box--disabled": false/*isFilePicked*/ }
+                )}>
+                <Snackbar open={errorMessage} anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={3000} onClose={handleErrorClose}>
+                    <Alert onClose={handleErrorClose} severity="error">
+                        <div className="alert-text">{errorMessage}</div>
+                    </Alert>
+                </Snackbar>
+                <form
+                    onDrop={e => handleDrop(e)}
+                    onDragOver={e => handleDragOver(e)}
+                    onDragEnter={e => handleDragEnter(e)}
+                    onDragLeave={e => handleDragLeave(e)}
+                >
+                    <div className="upload-box__input">
+                        <input className="box__file" ref={input_file} type="file" name="file" onChange={(e) => { checkFileIsImage(e.target.files[0]); }} accept=".png, .jpg, .jpeg" id="file" hidden />
+                        {!dragAndDropStarted &&
+                            <label htmlFor="file">
+                                <div className="input-label">
+                                    <div className="input-label__icon">
+                                        <AddPhotoAlternate />
+                                    </div>
+                                    <div className="input-label__text">
+                                        <u>Виберіть зображення</u> <span className="only-on-pc">або перетягніть його сюди</span>
+                                    </div>
                                 </div>
-                                <div className="input-label__text">
-                                    <u>Виберіть зображення</u> <span className="only-on-pc">або перетягніть його сюди</span>
-                                </div>
+                            </label>
+                        }
+                    </div>
+                    <div className="upload-box__drop">
+                        <div className="input-label">
+                            <div className="input-label__icon">
+                                <PhotoLibrary />
                             </div>
-                        </label>
-                    }
-                </div>
-                <div className="upload-box__drop">
-                    <div className="input-label">
-                        <div className="input-label__icon">
-                            <PhotoLibrary />
-                        </div>
-                        <div className="input-label__text">
-                            Перетягніть зображення сюди
+                            <div className="input-label__text">
+                                Перетягніть зображення сюди
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="upload-box__drop-here">
-                    <div className="input-label">
-                        <div className="input-label__icon">
-                            <SaveAlt />
-                        </div>
-                        <div className="input-label__text">
-                            Відпустіть файл тут
+                    <div className="upload-box__drop-here">
+                        <div className="input-label">
+                            <div className="input-label__icon">
+                                <SaveAlt />
+                            </div>
+                            <div className="input-label__text">
+                                Відпустіть файл тут
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     );
 }

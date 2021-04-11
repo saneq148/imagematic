@@ -11,11 +11,9 @@ export const fetchUserProfile = () => {
             }
         })
             .then((res) => {
-                console.log(res.data.model);
                 dispatch(setUserProfile(res.data.model));
             })
             .catch((err) => {
-                console.log(err);
             })
             .finally(() => {
 

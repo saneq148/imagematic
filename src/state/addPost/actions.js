@@ -29,8 +29,9 @@ export const setDescription = (payload) => ({
 });
 
 export const fetchCategories = (q, loading, setCategories) => {
-    return () => {
+    return (dispatch) => {
         loading(true);
+        dispatch(setCategoriesError(false));
         axios.get(`${HOST}/api/categories`, {
             params: {
                 page: 1,
@@ -44,14 +45,8 @@ export const fetchCategories = (q, loading, setCategories) => {
             .then(res => {
                 setCategories(res.data.data);
             })
-            .catch(err => {
-                /*if (err.response) {
-
-                } else if (err.request) {
-
-                } else {
-
-                }*/
+            .catch(() => {
+                dispatch(setCategoriesError(true));
             })
             .finally(() => {
                 loading(false);
@@ -61,6 +56,7 @@ export const fetchCategories = (q, loading, setCategories) => {
 
 export const publishPost = (setUploadingProgress) => {
     return (dispatch, getState) => {
+        dispatch(setError(false));
         const title = getState().AddPost.title;
         const category = getState().AddPost.category;
         const description = getState().AddPost.description;
@@ -91,8 +87,8 @@ export const publishPost = (setUploadingProgress) => {
             .then((res) => {
                 dispatch(push(`/post/${res.data.model.id}`));
             })
-            .catch((err) => {
-                console.log(err.request);
+            .catch(() => {
+                dispatch(setError(true));
             })
             .finally(() => {
                 setUploadingProgress(null);
@@ -102,6 +98,16 @@ export const publishPost = (setUploadingProgress) => {
 
 export const setCategory = (payload) => ({
     type: types.SET_CATEGORY,
+    payload
+});
+
+const setError = (payload) => ({
+    type: types.SET_ERROR,
+    payload
+});
+
+const setCategoriesError = (payload) => ({
+    type: types.SET_CATEGORIES_ERRORS,
     payload
 });
 

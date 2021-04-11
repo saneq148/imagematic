@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Header } from "src/Components/Header";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
@@ -16,7 +16,6 @@ function MyProfile() {
     }, []);
 
     const profile = useSelector(getProfileInfo);
-    console.log(profile);
 
     return (
         <>

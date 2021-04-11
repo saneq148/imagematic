@@ -7,8 +7,8 @@ const initialState = {
     title: "",
     description: "",
     category: "",
-    categories: [],
-    formErrors: null
+    formErrors: null,
+    error: null
 };
 
 const AddPost = (state = initialState, action) => {
@@ -45,15 +45,15 @@ const AddPost = (state = initialState, action) => {
                 ...state,
                 description: payload
             };
-        case types.SET_CATEGORIES:
-            return {
-                ...state,
-                categories: payload
-            };
         case types.SET_FORM_ERRORS:
             return {
                 ...state,
                 formErrors: payload
+            };
+        case types.SET_ERROR:
+            return {
+                ...state,
+                error: payload
             };
         case types.RESET_IMAGE:
             return {
@@ -62,7 +62,11 @@ const AddPost = (state = initialState, action) => {
             };
         case types.RESET_FORM:
             return {
-                ...initialState
+                ...state,
+                title: "",
+                description: "",
+                category: "",
+                formErrors: null,
             };
         default:
             return {

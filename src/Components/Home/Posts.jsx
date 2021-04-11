@@ -85,7 +85,7 @@ function Posts() {
                         <div className="posts-error">
                             <Alert severity="error"
                                 action={
-                                    <Button color="inherit" size="big" onClick={loadPosts}>
+                                    <Button color="inherit" size="large" onClick={loadPosts}>
                                         Спробувати ще раз
                                     </Button>
                                 }>

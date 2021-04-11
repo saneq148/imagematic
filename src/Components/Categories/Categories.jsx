@@ -196,7 +196,6 @@ function Categories() {
     const [itemsToDelete, setItemsToDelete] = useState([]);
     const [itemsToDeleteModalOpen, setItemsToDeleteModalOpen] = useState(false);
 
-    console.log(itemsToDelete);
     const itemsToDeleteUnique = itemsToDelete.filter(n => n);
 
     const handleItemsToDeleteModalClose = () => {

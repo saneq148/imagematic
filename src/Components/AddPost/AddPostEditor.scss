@@ -1,0 +1,44 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.cropper {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.crop-buttons {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    overflow: hidden;
+    border: 1px solid $grey-300;
+    border-bottom: none;
+    button {
+        //border: 1px solid $grey-300;
+        border: none;
+        height: 6.5rem;
+        flex-grow: 1;
+        background-color: #fff;
+        outline: none;
+        @extend %pointer;
+        font-size: 2.1rem;
+        &.active {
+            background-color: $primary-yellow;
+        }
+        &:focus {
+            outline: 1px solid $grey-300;
+        }
+        svg {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+}
+
+button.save-button {
+    background-color: $primary;
+    color: white;
+}

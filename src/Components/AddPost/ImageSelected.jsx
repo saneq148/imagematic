@@ -1,11 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getImage } from "src/state/addPost/selectors";
+import { getOriginalImage } from "src/state/addPost/selectors";
 import "./ImageSelected.scss";
 
 function ImageSelected() {
 
-    const image = useSelector(getImage);
+    const image = useSelector(getOriginalImage);
 
     return (
         <div className="image-selected">

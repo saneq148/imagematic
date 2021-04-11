@@ -55,15 +55,15 @@ function Posts() {
                             posts.map((post, index) => {
                                 if (posts.length === index + 1) {
                                     return (
-                                        <div className="post-wrapper" ref={lastPostElement}>
-                                            <PostPreview key={`${post.id}${post.title}`} post={post} />
+                                        <div className="post-wrapper" ref={lastPostElement} key={post.id}>
+                                            <PostPreview post={post} />
                                         </div>
                                     );
                                 }
                                 else {
                                     return (
-                                        <div className="post-wrapper">
-                                            <PostPreview key={`${post.id}${post.title}`} post={post} />
+                                        <div className="post-wrapper" key={post.id}>
+                                            <PostPreview post={post} />
                                         </div>
                                     );
                                 }

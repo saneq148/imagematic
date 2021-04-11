@@ -30,6 +30,9 @@ export const fetchPost = (id) => {
                 if (!err.response) {
                     dispatch(setError({ title: "На жаль, ця сторінка недоступна.", message: "Посилання, за яким ви перейшли більше недоступне" }));
                 }
+            })
+            .then(() => {
+                dispatch(setLoading(false));
             });
     };
 };
@@ -46,9 +49,6 @@ const fetchAuthor = (id) => {
             })
             .catch(() => {
                 dispatch(setAuthor({ username: "Not Found", first_name: "Not Found", last_name: "Not Found" }));
-            })
-            .then(() => {
-                dispatch(setLoading(false));
             });
     };
 };
@@ -95,4 +95,8 @@ const setLoading = (payload) => ({
 const setError = (payload) => ({
     type: types.SET_ERROR,
     payload
+});
+
+export const resetPost = () => ({
+    type: types.RESET_POST
 });

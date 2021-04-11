@@ -9,8 +9,6 @@ const Post = (props) => {
 
     const item = props.post;
 
-    console.log(item);
-
     return (
         <Link to={`/post/${item.id}`} >
             <div className={s.post} key={item.id}>

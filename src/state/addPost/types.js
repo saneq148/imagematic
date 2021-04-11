@@ -1,4 +1,6 @@
 export const SET_IMAGE = "SET_IMAGE";
+export const SET_ORIGINAL_IMAGE = "SET_ORIGINAL_IMAGE";
+export const SET_IMAGE_EDITED = "SET_IMAGE_EDITED";
 export const SET_TITLE = "SET_TITLE";
 export const SET_DESCRIPTION = "SET_DESCRIPTION";
 export const SET_CATEGORY = "SET_CATEGORY";

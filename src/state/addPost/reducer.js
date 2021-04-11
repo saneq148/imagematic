@@ -2,6 +2,8 @@ import * as types from "./types";
 
 const initialState = {
     image: null,
+    originalImage: null,
+    imageEdited: false,
     title: "",
     description: "",
     category: "",
@@ -17,6 +19,16 @@ const AddPost = (state = initialState, action) => {
             return {
                 ...state,
                 image: payload
+            };
+        case types.SET_ORIGINAL_IMAGE:
+            return {
+                ...state,
+                originalImage: payload
+            };
+        case types.SET_IMAGE_EDITED:
+            return {
+                ...state,
+                imageEdited: payload
             };
         case types.SET_TITLE:
             return {

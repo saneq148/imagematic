@@ -3,9 +3,9 @@ import { Header } from "src/Components/Header";
 import { Helmet } from "react-helmet";
 import { SITE_NAME } from "src/config";
 import "src/scss/Content.scss";
-import { ImageSelect, ImageSelected, AddPostForm } from "src/Components/AddPost";
+import { ImageSelect, ImageSelected, AddPostForm, AddPostEditor } from "src/Components/AddPost";
 import { useSelector, useDispatch } from "react-redux";
-import { getImage, getFormErrors } from "src/state/addPost/selectors";
+import { getImage, getFormErrors, getImageIsEdited } from "src/state/addPost/selectors";
 import { publishPost, resetImage, resetForm } from "src/state/addPost/actions";
 import "./AddPost.scss";
 import "semantic-ui-css/components/icon.min.css";
@@ -16,6 +16,7 @@ function AddPost() {
 
     const dispatch = useDispatch();
     const image = useSelector(getImage);
+    const imageEdited = useSelector(getImageIsEdited);
 
     const [submittingStep, setSubmittingStep] = useState(1);
     const [uploadingProgress, setUploadingProgress] = useState(null);
@@ -44,7 +45,7 @@ function AddPost() {
             </Helmet>
             <Header />
             <main className="main-content">
-                <div className="add-post__loading"><div style={{ width: `${((submittingStep - 1) / 3) * 100 + (uploadingProgress / 3)}%` }}></div></div>
+                <div className="add-post__loading"><div style={{ width: `${((submittingStep - 1) / 4) * 100 + (uploadingProgress / 4)}%` }}></div></div>
                 <div className="container">
                     <section className="add-post">
                         <header className="content-header">
@@ -53,12 +54,22 @@ function AddPost() {
                             </div>
                         </header>
                         <div className="content">
-                            <div className="add-post__header">
-                                {image && submittingStep !== 1 && submittingStep !== 2 && <button className="reset-button" disabled={!image} onClick={() => setSubmittingStep(submittingStep - 1)}>Назад</button>}
-                                {image && submittingStep === 2 && <button className="reset-button" onClick={handleResetImage}><UndoIcon />Відмінити</button>}
-                                {image && submittingStep !== 3 && submittingStep !== 1 && <button className="button-next button-yellow" disabled={!image} onClick={() => setSubmittingStep(submittingStep + 1)}>Далі</button>}
-                                {image && submittingStep === 3
-                                    && <button
+                            {image && submittingStep === 2 && (
+                                <div className="add-post__header">
+                                    <button className="reset-button" disabled={!image} onClick={handleResetImage}><UndoIcon />Відмінити</button>
+                                    <button className="button-next button-yellow" disabled={!image} onClick={() => setSubmittingStep(3)}>Далі</button>
+                                </div>
+                            )}
+                            {image && submittingStep === 3 && (
+                                <div className="add-post__header">
+                                    <button className="reset-button" disabled={!image} onClick={() => setSubmittingStep(2)}>Назад</button>
+                                    <button className="button-next button-yellow" disabled={!imageEdited} onClick={() => setSubmittingStep(4)}>Далі</button>
+                                </div>
+                            )}
+                            {image && submittingStep === 4 && (
+                                <div className="add-post__header">
+                                    <button className="reset-button" disabled={!image} onClick={() => setSubmittingStep(3)}>Назад</button>
+                                    <button
                                         className="button-next button-yellow"
                                         disabled={isReadyToPublish !== false || uploadingProgress}
                                         onClick={handlePublish}>
@@ -73,14 +84,16 @@ function AddPost() {
                                                     style={{ width: `${uploadingProgress}%` }}>
                                                 </div>
                                             </div>}
-                                    </button>}
-                            </div>
+                                    </button>
+                                </div>
+                                )}
 
                             {submittingStep === 1 && <div className="content-center">
                                 <ImageSelect gotoNextStep={setSubmittingStep} />
                             </div>}
                             {image && submittingStep === 2 && <ImageSelected />}
-                            {image && submittingStep === 3 && <AddPostForm />}
+                            {image && submittingStep === 3 && <AddPostEditor image={image} />}
+                            {image && submittingStep === 4 && <AddPostForm />}
                         </div>
                     </section>
                 </div>

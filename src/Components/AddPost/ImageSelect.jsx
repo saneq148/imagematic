@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import classNames from "classnames";
 import { AddPhotoAlternate, SaveAlt, PhotoLibrary } from "@material-ui/icons";
 import "./ImageSelect.scss";
-import { setImage } from "src/state/addPost/actions";
+import { setImage, setOriginalImage } from "src/state/addPost/actions";
 import PropTypes from "prop-types";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -14,8 +14,6 @@ function Alert(props) {
 
 function ImageSelect(props) {
 
-
-    console.log(props);
     const dispatch = useDispatch();
 
     const input_file = useRef(null);
@@ -36,6 +34,7 @@ function ImageSelect(props) {
         let extFile = file.name.substr(idxDot, file.name.length).toLowerCase();
         if (extFile === "jpg" || extFile === "jpeg" || extFile === "png") {
             dispatch(setImage(file));
+            dispatch(setOriginalImage(file));
             props.gotoNextStep(2);
             return;
         }

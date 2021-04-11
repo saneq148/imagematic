@@ -8,6 +8,16 @@ export const setImage = (payload) => ({
     payload
 });
 
+export const setOriginalImage = (payload) => ({
+    type: types.SET_ORIGINAL_IMAGE,
+    payload
+});
+
+export const setImageBeenEdited = (payload) => ({
+    type: types.SET_IMAGE_EDITED,
+    payload
+});
+
 export const setTitle = (payload) => ({
     type: types.SET_TITLE,
     payload

@@ -19,6 +19,7 @@
     ],
     "rules": {
         "no-unused-vars": "warn",
+        "no-debugger": "warn",
         "semi": "warn",
         "quotes": [
             "warn",

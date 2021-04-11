@@ -14,7 +14,9 @@ const initialState = {
     authorId: null,
     author: null,
     authorName: null,
-    authorSurname: null
+    authorSurname: null,
+    postId: null,
+    imageId: null
 };
 
 export default function Post(state = initialState, action) {
@@ -34,7 +36,9 @@ export default function Post(state = initialState, action) {
                 updated_at: payload.updated_at,
                 categoryTitle: payload.category.title,
                 categoryId: payload.category.id,
-                authorId: payload.created_by
+                authorId: payload.created_by,
+                imageId: payload.image,
+                postId: payload.id
             };
         case types.SET_LOADING:
             return {
@@ -53,6 +57,8 @@ export default function Post(state = initialState, action) {
                 authorName: payload.first_name,
                 authorSurname: payload.last_name
             };
+        case types.RESET_POST:
+            return initialState;
         default:
             return state;
     }

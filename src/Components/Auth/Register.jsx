@@ -68,6 +68,7 @@ function Register() {
                                     value={values.login}
                                     readOnly={isSubmitting}
                                     required
+                                    autoCapitalize="off"
                                 />
                                 <label className="auth__placeholder" htmlFor="login">
                                     Логін

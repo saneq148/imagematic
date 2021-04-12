@@ -1,0 +1,73 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.post {
+    padding-top: 100%;
+    position: relative;
+    overflow: hidden;
+    position: relative;
+    border-radius: 4px;
+    &__img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: transform 1s ease;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            background-color: $grey-200;
+        }
+    }
+    &__category {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        color: white;
+        z-index: 6;
+        max-width: calc(100% - 2rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: "Roboto", sans-serif;
+        font-weight: 100;
+        margin: 0;
+        padding: 1rem;
+        @include adaptive-font(23, 15);
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        background-image: linear-gradient(to top, rgba($black-1000, .6), rgba($black-1000, 0) 50%);
+    }
+    @include laptop() {
+        &:hover {
+            .post__img {
+                transition: transform 5s ease;
+                transform: scale(1.25);
+            }
+            .post__category {
+                transform: translateY(0%);
+            }
+        }
+        &__category {
+            transform: translateY(100%);
+            transition: all .3s ease;
+        }
+        &::before {
+            top: 100%;
+            opacity: 0;
+            transition: all .4s ease;
+        }
+        &:hover::before {
+            top: 0;
+            opacity: 1;
+        }
+    }
+}

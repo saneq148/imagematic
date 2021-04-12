@@ -1,35 +1,53 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import "./App.scss";
-import { Auth, Categories, Profile, Home } from "./Pages";
-import { Login, Register, Preloader } from "./Components";
+import { Auth, Login, Register } from "src/Components/Auth";
+import { Home } from "src/Components/Home";
+import { AddPost } from "src/Components/AddPost";
+import { MyProfile } from "src/Components/MyProfile";
+import { Categories } from "src/Components/Categories";
+import { PostPage } from "src/Components/PostPage";
+import { Preloader } from "src/Components/Preloader";
 import { getUserLoggedIn } from "./state/user/selectors";
 import { useSelector } from "react-redux";
+import { ConnectedRouter } from "connected-react-router";
+import { history } from "src/state";
+import { SearchPage } from "./Components/Search";
+
 
 function App() {
 
-    const isLoggedIn = useSelector(getUserLoggedIn);
+    const isAuthenticated = useSelector(getUserLoggedIn);
 
     return (
         <div className="wrapper">
-            <Router>
-                {!isLoggedIn ? <Redirect to="/" /> : null}
+            <ConnectedRouter history={history}>
                 <Suspense fallback={<Preloader />} >
                     <Switch>
-                        <Route path="/login" exact>
-                            <Auth>{<Login />}</Auth>
-                        </Route>
-                        <Route path="/register" exact>
-                            <Auth>{<Register />}</Auth>
-                        </Route>
                         <Route path="/" exact>
                             <Home />
                         </Route>
+                        <Route path="/login" exact>
+                            <Auth>
+                                <Login />
+                            </Auth>
+                        </Route>
+                        <Route path="/register" exact>
+                            <Auth>
+                                <Register />
+                            </Auth>
+                        </Route>
+                        {!isAuthenticated && <Redirect to="/" />}
+                        <Route path="/post/:id" component={PostPage} />
+                        <Route path="/search" component={SearchPage} />
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>
+                        <Route path="/add" exact>
+                            <AddPost />
+                        </Route>
                         <Route path="/profile" exact>
-                            <Profile />
+                            <MyProfile />
                         </Route>
                         <Route path="/">
                             <div>
@@ -39,7 +57,7 @@ function App() {
                         </Route>
                     </Switch>
                 </Suspense>
-            </Router>
+            </ConnectedRouter>
         </div >
     );
 }

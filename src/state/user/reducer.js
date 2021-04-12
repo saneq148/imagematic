@@ -6,50 +6,29 @@ const initialState = {
     login: null,
     name: null,
     surname: null,
+    isFetching: false,
+    error: null,
 };
 
-const userReducer = (state = initialState, action) => {
+const User = (state = initialState, action) => {
     switch (action.type) {
-        case types.SET_LOGGED:
+        case types.LOGOUT:
             return {
-                ...state,
-                isLoggedIn: action.payload,
+                ...initialState
             };
-        case types.LOGIN:
+        case types.SET_USER_SUCCESS:
             return {
                 ...state,
                 isLoggedIn: true,
-                id: action.payload,
-            };
-        case types.LOGOUT:
-            return {
-                ...state,
-                isLoggedIn: false,
-                id: null,
-            };
-        case types.SET_USER_ID:
-            return {
-                ...state,
-                id: action.payload,
-            };
-        case types.SET_USER_LOGIN:
-            return {
-                ...state,
-                login: action.payload,
-            };
-        case types.SET_USER_NAME:
-            return {
-                ...state,
-                name: action.payload,
-            };
-        case types.SET_USER_SURNAME:
-            return {
-                ...state,
-                surname: action.payload,
+                id: action.payload.id,
+                login: action.payload.username,
+                name: action.payload.first_name,
+                surname: action.payload.last_name,
+                isFetching: false,
             };
         default:
             return state;
     }
 };
 
-export default userReducer;
+export default User;

@@ -1,0 +1,51 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.cropper {
+    width: 100%;
+    position: relative;
+    aspect-ratio: 1 / 1;
+}
+
+.crop {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid $grey-100;
+    &__slider {
+        padding: 0 .5rem;
+        background-color: #fff;
+        border-bottom: 1px solid $grey-100;
+    }
+}
+
+.crop__buttons {
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    border-bottom: none;
+    button {
+        //border: 1px solid $grey-300;
+        border: none;
+        height: 6.5rem;
+        flex-grow: 1;
+        background-color: #fff;
+        outline: none;
+        @extend %pointer;
+        font-size: 2.1rem;
+        &.active {
+            background-color: $primary-yellow;
+        }
+        &:focus {
+            outline: 1px solid $grey-300;
+        }
+        svg {
+            height: 3rem;
+            width: 3rem;
+        }
+    }
+}
+
+button.save-button {
+    background-color: $primary;
+    color: white;
+}

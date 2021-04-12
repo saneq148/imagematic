@@ -1,0 +1,46 @@
+@import "src/scss/vars";
+@import "src/scss/mixin";
+
+.edit {
+    height: 100%;
+    display: flex;
+    margin-left: 1rem;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: transform .2s ease;
+    &__button {
+        @extend %pointer;
+        &:hover {
+            transform: scale(1.1);
+        }
+        svg {
+            width: 30px;
+            height: 30px;
+        }
+    }
+    &__menu {
+        display: none;
+        position: absolute;
+        top: 4rem;
+        right: 0;
+        background-color: #fff;
+        font-size: 1.5rem;
+        border: 1px solid $grey-100;
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            li {
+                margin: 1rem;
+                @extend %pointer;
+            }
+        }
+    }
+}
+
+.edit--open {
+    .edit__menu {
+        display: block;
+    }
+}

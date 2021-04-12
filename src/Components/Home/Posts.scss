@@ -1,0 +1,27 @@
+@import "src/scss/mixin";
+@import "src/scss/vars";
+
+
+.posts-wrapper {
+    padding-bottom: 3rem;
+}
+
+.posts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    @include small() {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @include pc() {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+.posts-loader {
+    margin: 2rem auto;
+}
+
+.error-message {
+    font-size: 1.5rem;
+}

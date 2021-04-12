@@ -1,4 +1,5 @@
 @import "./scss/vars";
+@import "./scss/mixin";
 
 body {
     color: $black-900;
@@ -10,5 +11,8 @@ body {
     box-sizing: content-box;
 }
 .main-content {
-    margin-top: $header-min-height;
+    padding-top: $mobile-header-min-height;
+    @include tablet() {
+        padding-top: $header-min-height
+    }
 }

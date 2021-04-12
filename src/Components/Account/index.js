@@ -1,0 +1,1 @@
+export { default as Account } from "src/Components/Account/Account";

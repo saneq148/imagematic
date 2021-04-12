@@ -1,7 +1,11 @@
 $container-width: 1170px;
 $container-padding: 0 15px;
+$container-small: 728px;
 
 $header-min-height: 8rem;
+$mobile-header-min-height: 4rem;
+
+// COLORS
 
 $primary: #FE5433;
 
@@ -19,6 +23,7 @@ $red-100: #ffb0b0;
 $red-200: #ff4d47;
 $red-300: #fc3d3d;
 
+$blue-100: #b0ccec;
 $blue-400: #3b90f3;
 
 $green-200: darken($primary-green, 27%);
@@ -26,3 +31,13 @@ $green-300: #2aaa46;
 $green-500: #02791c;
 
 $black-900: #343a40;
+$black-1000: #292929;
+
+// CHUNKS
+
+%pointer {
+    @media only screen and (pointer) {
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+}

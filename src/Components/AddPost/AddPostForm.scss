@@ -1,0 +1,47 @@
+@import "src/scss/mixin";
+@import "src/scss/vars";
+
+.add-post-form {
+    display: flex;
+    flex-direction: column;
+    @include small() {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 50rem;
+    }
+    &__image {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        margin-bottom: 2rem;
+        background-color: #fff;
+        img {
+            width: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+            max-height: 100%;
+        }
+    }
+    &__form {
+        margin-bottom: 2rem;
+        @include small {
+            margin-left: 1.5rem;
+        }
+    }
+    .ui .field label.add-post-form__label {
+        font-size: 13px;
+        font-weight: normal;
+        font-family: "Roboto", sans-serif;
+        padding-left: .5rem;
+        margin-bottom: .5rem;
+    }
+}
+
+.ui .search {
+    font-size: 1.5rem!important;
+}
+.ui.form textarea {
+    font-size: 1.5rem!important;
+}

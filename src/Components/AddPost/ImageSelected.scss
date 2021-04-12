@@ -1,0 +1,61 @@
+@import "src/scss/mixin";
+@import "src/scss/vars";
+
+.image-selected {
+    width: 100%;
+    margin: auto;
+    position: relative;
+    color: white;
+    font-size: 1.5rem;
+    overflow: hidden;
+    border-radius: 9px;
+    box-shadow: 2px 2px 10px 3px $grey-100;
+    &::after {
+        content: "";
+        display: block;
+        bottom: 0;
+        width: 100%;
+        height: 6rem;
+        background: rgb(52,52,62);
+        background: linear-gradient(0deg, rgba($black-1000, .7) 0%, transparent 100%);
+        position: absolute;
+    }
+    svg {
+        width: 3rem;
+        height: 3rem;
+    }
+    img {
+        display: block;
+        width: 100%;
+        user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
+    $padding: 10px;
+    &__title {
+        max-height: calc(17px * 2);
+        position: absolute;
+        bottom: $padding;
+        left: $padding;
+        z-index: 2;
+        max-width: 50%;
+        -webkit-line-clamp: 1;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    &__size {
+        position: absolute;
+        bottom: $padding;
+        right: $padding;
+        z-index: 2;
+    }
+    &__shield {
+        position: absolute;
+        inset: 0;
+        background-color: transparent;
+        z-index: 0;
+    }
+}

@@ -1,5 +1,13 @@
+@import "./vars";
+
 @mixin mobile {
     @media only screen and (max-width: 480px) {
+        @content;
+    }
+}
+
+@mixin phone {
+    @media only screen and (max-width: 768px) {
         @content;
     }
 }
@@ -26,4 +34,29 @@
     @media only screen and (min-width: 1200px) {
         @content;
     }
+}
+
+@mixin hover {
+    @media only screen and (pointer) {
+        @content;
+    }
+}
+
+@mixin smartphone {
+    @media only screen and (hover: none) {
+        @content;
+    }
+}
+@mixin laptop {
+    @media only screen and (hover: hover) {
+        @content;
+    }
+}
+
+$maxWidth: 1170;
+
+@mixin adaptive-font($pcSize, $mobSize) {
+    $addSize: $pcSize - $mobSize;
+    $maxWidth: $maxWidth - 320;
+    font-size: calc(#{$mobSize + px} + #{$addSize} * ((100vw - 320px) / #{$maxWidth}));
 }

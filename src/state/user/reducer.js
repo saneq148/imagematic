@@ -10,19 +10,8 @@ const initialState = {
     error: null,
 };
 
-const userReducer = (state = initialState, action) => {
+const User = (state = initialState, action) => {
     switch (action.type) {
-        case types.SET_LOGGED:
-            return {
-                ...state,
-                isLoggedIn: action.payload,
-            };
-        case types.LOGIN:
-            return {
-                ...state,
-                isLoggedIn: true,
-                id: action.payload,
-            };
         case types.LOGOUT:
             return {
                 ...initialState
@@ -42,4 +31,4 @@ const userReducer = (state = initialState, action) => {
     }
 };
 
-export default userReducer;
+export default User;

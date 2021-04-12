@@ -1,0 +1,42 @@
+@import "src/scss/mixin";
+
+.content-header {
+    padding: 1.5rem 0;
+    @include small() {
+        padding: 2rem 0;
+    }
+    @include tablet() {
+        padding: 3rem 0;
+    }
+    @include large() {
+        padding: 4rem 0;
+    }
+    @include pc() {
+        padding: 5rem 0;
+    }
+    &__title h1 {
+        @include adaptive-font (40, 25);
+        font-family: "HelveticaCyr", sans-serif;
+        font-weight: 100;
+        margin: 0;
+    }
+    &__nav {
+        display: flex;
+        flex-direction: column;
+        @include small() {
+            flex-direction: row;
+        }
+    }
+}
+
+.content-center {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container--one-line {
+    max-width: $container-small;
+    margin: auto;
+}

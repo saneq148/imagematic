@@ -6,38 +6,46 @@ const initialState = {
     error: null,
     hasMore: true,
     pageNumber: 0,
+    query: ""
 };
 
-const Posts = (state = initialState, action) => {
+const SearchPage = (state = initialState, action) => {
     const { type, payload } = action;
 
     switch (type) {
-        case types.SET_HOMEPAGE_POSTS:
+        case types.SET_SEARCHPAGE_QUERY:
+            return {
+                ...state,
+                query: payload,
+                posts: initialState.posts,
+                hasMore: true
+            };
+        case types.SET_SEARCHPAGE_POSTS:
             return {
                 ...state,
                 posts: [...state.posts, ...payload]
             };
-        case types.SET_HOMEPAGE_FETCHING:
+        case types.SET_SEARCHPAGE_FETCHING:
             return {
                 ...state,
                 loading: payload
             };
-        case types.SET_HOMEPAGE_ERROR:
+        case types.SET_SEARCHPAGE_ERROR:
             return {
                 ...state,
                 error: payload
             };
-        case types.SET_HOMEPAGE_HAS_MORE:
+        case types.SET_SEARCHPAGE_HAS_MORE:
             return {
                 ...state,
                 hasMore: payload
             };
-        case types.SET_HOMEPAGE_PAGE_NUMBER:
+        case types.SET_SEARCHPAGE_PAGE_NUMBER:
             return {
                 ...state,
                 pageNumber: payload
             };
-        case types.RESET_HOMEPAGE_POSTS:
+        case types.RESET_SEARCHPAGE_POSTS:
             return initialState;
         default:
             return {
@@ -46,4 +54,4 @@ const Posts = (state = initialState, action) => {
     }
 };
 
-export default Posts;
+export default SearchPage;

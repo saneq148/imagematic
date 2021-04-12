@@ -2,7 +2,10 @@
 @import "src/scss/mixin";
 
 .post-wrapper {
-    padding: 6rem 0;
+    padding: 3rem 0;
+    @include large() {
+        padding: 5rem 0;
+    }
 }
 
 .post {

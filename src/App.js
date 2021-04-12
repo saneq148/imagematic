@@ -39,7 +39,7 @@ function App() {
                         </Route>
                         {!isAuthenticated && <Redirect to="/" />}
                         <Route path="/post/:id" component={PostPage} />
-                        <Route path="/search/:query" component={SearchPage} />
+                        <Route path="/search" component={SearchPage} />
                         <Route path="/categories" exact>
                             <Categories />
                         </Route>

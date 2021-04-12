@@ -7,10 +7,13 @@ import { Loader } from "semantic-ui-react";
 import "semantic-ui-css/components/loader.css";
 import Alert from "@material-ui/lab/Alert";
 import Button from "@material-ui/core/Button";
-import { getPosts, getFetching, getError, getHasMore, getPageNumber } from "src/state/Posts/selectors";
-import { resetPosts, setPageNumber, fetchPosts } from "src/state/Posts/actions";
+import { getPosts, getFetching, getError, getHasMore, getPageNumber } from "src/state/posts/selectors";
+import { resetPosts, setPageNumber, fetchPosts } from "src/state/posts/actions";
 import { Link } from "react-router-dom";
 import "src/scss/NotFound.scss";
+import "./Home.scss";
+import SearchIcon from "@material-ui/icons/Search";
+import LibraryAddIcon from "@material-ui/icons/LibraryAdd";
 
 function Posts() {
 
@@ -49,13 +52,25 @@ function Posts() {
     }, []);
 
     return (
-        <section className="posts-page">
+        <section className="homepage">
             <header className="content-header">
                 <div className="content-header__title">
                     <h1>Головна</h1>
                 </div>
             </header>
             <div className="content">
+                <div className="content-header__nav">
+                    <div className="homepage__nav">
+                        <Link to="/search" className="homepage__search-btn">
+                            <span>Пошук</span>
+                            <SearchIcon />
+                        </Link>
+                        <Link to="/add" className="homepage__add-btn">
+                            <LibraryAddIcon />
+                            <span>Додати</span>
+                        </Link>
+                    </div>
+                </div>
                 <div className="posts-wrapper">
                     <div className="posts">
                         {
@@ -63,14 +78,14 @@ function Posts() {
                                 if (posts.length === index + 1) {
                                     return (
                                         <div className="post-wrapper" ref={lastPostElement} key={post.id}>
-                                            <PostPreview post={post} />
+                                            <PostPreview post={post} titleToDisplay={post.category ? post.category.title : post.title}/>
                                         </div>
                                     );
                                 }
                                 else {
                                     return (
                                         <div className="post-wrapper" key={post.id}>
-                                            <PostPreview post={post} />
+                                            <PostPreview post={post} titleToDisplay={post.category ? post.category.title : post.title}/>
                                         </div>
                                     );
                                 }

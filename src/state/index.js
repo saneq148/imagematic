@@ -3,8 +3,9 @@ import Categories from "./categories/reducer";
 import User from "./user/reducer";
 import Profile from "./profile/reducer";
 import AddPost from "./addPost/reducer";
-import Posts from "./Posts/reducer";
+import Posts from "./posts/reducer";
 import Post from "./post/reducer";
+import SearchPage from "./searchPage/reducer";
 import storage from "redux-persist/lib/storage";
 import { persistStore, persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
@@ -20,7 +21,8 @@ const rootReducer = (history) => combineReducers({
     Profile,
     AddPost,
     Posts,
-    Post
+    Post,
+    SearchPage
 });
 
 const persistConfig = {

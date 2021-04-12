@@ -4,27 +4,27 @@ import { HOST } from "src/config";
 import { push } from "connected-react-router";
 
 export const setImage = (payload) => ({
-    type: types.SET_IMAGE,
+    type: types.SET_ADDPOST_IMAGE,
     payload
 });
 
 export const setOriginalImage = (payload) => ({
-    type: types.SET_ORIGINAL_IMAGE,
+    type: types.SET_ADDPOST_ORIGINAL_IMAGE,
     payload
 });
 
 export const setImageBeenEdited = (payload) => ({
-    type: types.SET_IMAGE_EDITED,
+    type: types.SET_ADDPOST_IMAGE_EDITED,
     payload
 });
 
 export const setTitle = (payload) => ({
-    type: types.SET_TITLE,
+    type: types.SET_ADDPOST_TITLE,
     payload
 });
 
 export const setDescription = (payload) => ({
-    type: types.SET_DESCRIPTION,
+    type: types.SET_ADDPOST_DESCRIPTION,
     payload
 });
 
@@ -97,29 +97,29 @@ export const publishPost = (setUploadingProgress) => {
 };
 
 export const setCategory = (payload) => ({
-    type: types.SET_CATEGORY,
+    type: types.SET_ADDPOST_CATEGORY,
     payload
 });
 
 const setError = (payload) => ({
-    type: types.SET_ERROR,
+    type: types.SET_ADDPOST_ERROR,
     payload
 });
 
 const setCategoriesError = (payload) => ({
-    type: types.SET_CATEGORIES_ERRORS,
+    type: types.SET_ADDPOST_CATEGORIES_ERRORS,
     payload
 });
 
 export const resetImage = () => ({
-    type: types.RESET_IMAGE
+    type: types.RESET_ADDPOST_IMAGE
 });
 
 export const resetForm = () => ({
-    type: types.RESET_FORM
+    type: types.RESET_ADDPOST_FORM
 });
 
 export const setFormErrors = (payload) => ({
-    type: types.SET_FORM_ERRORS,
+    type: types.SET_ADDPOST_FORM_ERRORS,
     payload
 });

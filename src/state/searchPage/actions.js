@@ -4,8 +4,9 @@ import { HOST } from "src/config";
 
 export const fetchPosts = () => {
     return (dispatch, getState) => {
-        if (!getState().Posts.hasMore) return;
-        const page = getState().Posts.pageNumber + 1;
+        if (!getState().SearchPage.hasMore) return;
+        const q = getState().SearchPage.query;
+        const page = getState().SearchPage.pageNumber + 1;
         dispatch(setFetching(true));
         dispatch(setError(null));
         let cancel;
@@ -17,7 +18,7 @@ export const fetchPosts = () => {
                 limit: 12,
                 orderBy: "id",
                 order: "desc",
-                q: "",
+                q: q,
                 token: localStorage.getItem("token")
             },
             cancelToken: new axios.CancelToken((c) => cancel = c)
@@ -38,30 +39,35 @@ export const fetchPosts = () => {
 };
 
 export const setPageNumber = (payload) => ({
-    type: types.SET_HOMEPAGE_PAGE_NUMBER,
+    type: types.SET_SEARCHPAGE_PAGE_NUMBER,
+    payload
+});
+
+export const setSearchQuery = (payload) => ({
+    type: types.SET_SEARCHPAGE_QUERY,
     payload
 });
 
 const setFetching = (payload) => ({
-    type: types.SET_HOMEPAGE_FETCHING,
+    type: types.SET_SEARCHPAGE_FETCHING,
     payload
 });
 
 const setError = (payload) => ({
-    type: types.SET_HOMEPAGE_ERROR,
+    type: types.SET_SEARCHPAGE_ERROR,
     payload
 });
 
 const setHasMore = (payload) => ({
-    type: types.SET_HOMEPAGE_HAS_MORE,
+    type: types.SET_SEARCHPAGE_HAS_MORE,
     payload
 });
 
 const setPosts = (payload) => ({
-    type: types.SET_HOMEPAGE_POSTS,
+    type: types.SET_SEARCHPAGE_POSTS,
     payload
 });
 
 export const resetPosts = () => ({
-    type: types.RESET_HOMEPAGE_POSTS,
+    type: types.RESET_SEARCHPAGE_POSTS,
 });

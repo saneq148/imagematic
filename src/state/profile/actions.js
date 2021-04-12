@@ -12,11 +12,6 @@ export const fetchUserProfile = () => {
         })
             .then((res) => {
                 dispatch(setUserProfile(res.data.model));
-            })
-            .catch((err) => {
-            })
-            .finally(() => {
-
             });
     };
 };

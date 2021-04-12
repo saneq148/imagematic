@@ -12,7 +12,6 @@ export const fetchPost = (id) => {
             }
         })
             .then((res) => {
-                console.log(res);
                 if (res.data.model.category) {
                     dispatch(setPost(res.data.model));
                 }
@@ -54,7 +53,7 @@ const fetchAuthor = (id) => {
 };
 
 const setAuthor = (payload) => ({
-    type: types.SET_AUTHOR,
+    type: types.SET_POSTPAGE_AUTHOR,
     payload
 });
 
@@ -83,20 +82,20 @@ export const deletePost = (id, loading, error) => {
 };
 
 const setPost = (payload) => ({
-    type: types.SET_POST,
+    type: types.SET_POSTPAGE_POST,
     payload
 });
 
 const setLoading = (payload) => ({
-    type: types.SET_LOADING,
+    type: types.SET_POSTPAGE_LOADING,
     payload
 });
 
 const setError = (payload) => ({
-    type: types.SET_ERROR,
+    type: types.SET_POSTPAGE_ERROR,
     payload
 });
 
 export const resetPost = () => ({
-    type: types.RESET_POST
+    type: types.RESET_POSTPAGE_POST
 });

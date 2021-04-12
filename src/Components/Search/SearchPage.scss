@@ -1,0 +1,17 @@
+@import "src/scss/vars";
+
+.search-page {
+    &__nav {
+        padding: 1rem;
+        width: 100%;
+    }
+    &__input {
+        width: 100%;
+        outline: none;
+        line-height: 2.5rem;
+        font-size: 2.5rem;
+        border: none;
+        border-bottom: 2px solid $black-900;
+        background-color: transparent;
+    }
+}

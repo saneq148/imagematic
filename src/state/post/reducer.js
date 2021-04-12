@@ -24,7 +24,7 @@ export default function Post(state = initialState, action) {
     const { type, payload } = action;
 
     switch (type) {
-        case types.SET_POST:
+        case types.SET_POSTPAGE_POST:
             return {
                 ...state,
                 img: payload.img.filename,
@@ -40,24 +40,24 @@ export default function Post(state = initialState, action) {
                 imageId: payload.image,
                 postId: payload.id
             };
-        case types.SET_LOADING:
+        case types.SET_POSTPAGE_LOADING:
             return {
                 ...state,
                 loading: payload
             };
-        case types.SET_ERROR:
+        case types.SET_POSTPAGE_ERROR:
             return {
                 ...state,
                 error: payload
             };
-        case types.SET_AUTHOR:
+        case types.SET_POSTPAGE_AUTHOR:
             return {
                 ...state,
                 author: payload.username,
                 authorName: payload.first_name,
                 authorSurname: payload.last_name
             };
-        case types.RESET_POST:
+        case types.RESET_POSTPAGE_POST:
             return initialState;
         default:
             return state;

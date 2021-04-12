@@ -56,9 +56,6 @@ export const addCategory = (title, reloadCategories, closeModalWindow, successMe
                 closeModalWindow();
                 successMessage("Категорія додана");
             })
-            .catch((e) => {
-                console.log(e.message);
-            })
             .finally(() => {
                 dispatch(setCategoryFetching(false));
             });
@@ -76,9 +73,6 @@ export const editCategory = (id, title, closeModalWindow, successMessage) => {
                 dispatch(editCategoryLocaly({ id, title }));
                 closeModalWindow();
                 successMessage("Назву змінено");
-            })
-            .catch((err) => {
-                console.log(err.message);
             })
             .finally(() => {
                 dispatch(setCategoryFetching(false));
@@ -124,9 +118,6 @@ export const deleteCategories = (categories, reloadCategories, closeModalWindow,
                 successMessage("Категорії видалено");
                 reloadCategories();
                 resetDeleteItems([]);
-            })
-            .catch((err) => {
-                console.error(err.response);
             })
             .finally(() => {
                 dispatch(setCategoryFetching(false));

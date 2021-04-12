@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { resetImage } from "src/state/addPost/actions";
 import PropTypes from "prop-types";
 import "src/scss/Content.scss";
+import { formatBytes } from "./utils";
 
 function ImageSelected(props) {
 
@@ -32,7 +33,7 @@ function ImageSelected(props) {
                     {image.name}
                 </div>
                 <div className="image-selected__size">
-                    {image.size}
+                    {formatBytes(image.size)}
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 @import "src/scss/vars";
+@import "src/scss/mixin";
 
 .account {
     position: relative;
@@ -15,6 +16,9 @@
             transform: translateY(15%) rotate(0deg);
             margin-left: .5rem;
             transition: transform .1s ease-out;
+            @include phone () {
+                margin-left: .1rem;
+            }
         }
         &:hover::after {
             transform: translateY(40%);
@@ -25,16 +29,26 @@
         font-weight: 600;
         line-height: 3rem;
         vertical-align: middle;
+        @include phone () {
+            font-size: 1.3rem;
+        }
     }
     &__icon {
         margin-left: .5rem;
         border: 2px solid transparent;
         transition: .1s border linear;
         border-radius: 50%;
+        @include phone () {
+            margin-left: .1rem;
+        }
         svg {
             height: 3.6rem;
             width: 3.6rem;
             vertical-align: middle;
+            @include phone () {
+                height: 2.5rem;
+                width: 2.5rem;
+            }
         }
     }
     &__menu {
@@ -105,6 +119,22 @@
             background-color: white;
             position: absolute;
             z-index: -1;
+        }
+    }
+}
+
+@include phone () {
+    .account__menu {
+        font-size: 1rem;
+        ul {
+            li{
+                min-height: 3rem;
+                padding: 0 1rem;
+                svg {
+                    height: 1.5rem;
+                    width: 1.5rem;
+                }
+            }
         }
     }
 }
